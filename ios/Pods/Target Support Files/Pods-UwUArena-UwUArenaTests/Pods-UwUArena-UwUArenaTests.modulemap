@@ -1,0 +1,6 @@
+module Pods_UwUArena_UwUArenaTests {
+  umbrella header "Pods-UwUArena-UwUArenaTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

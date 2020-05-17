@@ -1,0 +1,6 @@
+module Pods_UwUArena {
+  umbrella header "Pods-UwUArena-umbrella.h"
+
+  export *
+  module * { export * }
+}
