@@ -26,7 +26,7 @@ public class Minion {
 
     }
 
-	private void Initialize () {
+	public constructor Minion () {
 		Initializer.Initialize(this);
 	}
 
