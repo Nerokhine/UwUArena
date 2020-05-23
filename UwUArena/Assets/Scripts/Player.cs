@@ -1,0 +1,121 @@
+using System;
+using System.Collections.Generic;
+public class Player {
+    private static int MAX_NUMBER_OF_COINS = 10;
+    private static int MAX_BUFFS_IN_HAND = 6;
+    private static int MAX_MINIONS_IN_HAND = 6;
+    private static int MAX_ROSTER_SIZE = 6;
+    private static int MINION_COST = 3;
+    private static int BUFF_COST = 3;
+    private static int MINION_SELL_AMOUNT = 1;
+    private static int BUFF_SELL_AMOUNT = 1;
+    private List<Minion> minionsInHand;
+    private List<Buff> buffsInHand;
+    private List<Minion> roster;
+    private int health;
+    private int maxCoins;
+    private int coins;
+
+    public Player(int health, int coins) {
+        this.health = health;
+        this.coins = coins;
+        this.maxCoins = coins;
+    }
+
+    private bool EnoughMoney(Buff buff) {
+        return coins >= BUFF_COST;
+    }
+
+    private bool EnoughMoney(Minion minion) {
+        return coins >= MINION_COST;
+    }
+
+    private bool EnoughSpaceInHand(Buff buff) {
+        return buffsInHand.Count < MAX_BUFFS_IN_HAND;
+    }
+    private bool EnoughSpaceInHand(Minion minion) {
+        return minionsInHand.Count < MAX_MINIONS_IN_HAND;
+    }
+
+    private bool EnoughSpaceInRoster() {
+        return roster.Count < MAX_ROSTER_SIZE;
+    }
+
+    private bool CanBuy(Minion minion) {
+        return EnoughMoney(minion) && EnoughSpaceInHand(minion);
+    }
+
+    private bool CanBuy(Buff buff) {
+        return EnoughMoney(buff) && EnoughSpaceInHand(buff);
+    }
+
+    public bool AddToHand(Minion minion) {
+        if (EnoughSpaceInHand(minion)) {
+            minionsInHand.Add(minion);
+            return true;
+        }
+        return false;
+    }
+
+    public bool AddToHand(Buff buff) {
+        if (EnoughSpaceInHand(buff)) {
+            buffsInHand.Add(buff);
+            return true;
+        }
+        return false;
+    }
+
+    public bool Buy(Buff buff) {
+        if (CanBuy(buff)) {
+            coins -= BUFF_COST;
+            AddToHand(buff);
+            return true;
+        }
+        return false;
+    }
+
+    public bool Buy(Minion minion) {
+        if (CanBuy(minion)) {
+            coins -= MINION_COST;
+            AddToHand(minion);
+            return true;
+        }
+        return false;
+    }
+
+    public bool BuffMinion(Buff buff, Minion minion) {
+        if (minion.Buff(buff)) {
+            buffsInHand.Remove(buff);
+            return true;
+        }
+        return false;
+    }
+
+    public void Sell(Minion minion) {
+        coins = Math.Min(coins + MINION_SELL_AMOUNT, MAX_NUMBER_OF_COINS);
+        roster.Remove(minion);
+        minionsInHand.Remove(minion);
+    }
+
+    public void Sell(Buff buff) {
+        coins = Math.Min(coins + BUFF_SELL_AMOUNT, MAX_NUMBER_OF_COINS);
+        buffsInHand.Remove(buff);
+    }
+
+    public bool AddToRoster(Minion minion, int index) {
+        if (!EnoughSpaceInRoster()) return false;
+        roster.Insert(index, minion);
+        return true;
+    }
+
+    public bool AddToRoster(Minion minion) {
+        if (!EnoughSpaceInRoster()) return false;
+        roster.Add(minion);
+        return true;
+    }
+
+    public void StartTurn() {
+        if (maxCoins < MAX_NUMBER_OF_COINS) maxCoins ++;
+        coins = maxCoins;
+    }
+}
