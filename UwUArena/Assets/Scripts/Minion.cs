@@ -1,4 +1,5 @@
 ﻿public class Minion {
+	private int level;
 	private int health;
 	private int attack;
 	private string name;
@@ -6,6 +7,26 @@
 	//private delegate void Death();
 	//private delegate void Entry();
 	//private delegate void Conditional();
+
+	public int GetLevel() {
+		return level;
+	}
+
+	public int GetHealth() {
+		return health;
+	}
+
+	public int GetAttack() {
+		return attack;
+	}
+
+	public string GetName() {
+		return name;
+	}
+
+	public Tribe GetTribe() {
+		return tribe;
+	}
 	
 	private void Death() {
 
@@ -28,8 +49,13 @@
 		return false;
 	}
 
-	public Minion () {
-
+	public Minion (string name) {
+		MinionData minionData = MinionData.GetMinionData(name);
+		this.name = name;
+		this.health = minionData.GetHealth();
+		this.attack = minionData.GetAttack();
+		this.tribe = minionData.GetTribe();
+		this.level = minionData.GetLevel();
 	}
 
 	/*public void GiveEffect (delegate DeathEffect, delegate EntryEffect, delegate ConditionalEffect) {

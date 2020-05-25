@@ -20,6 +20,9 @@ public class Player {
         this.health = health;
         this.coins = coins;
         this.maxCoins = coins;
+        this.minionsInHand = new List<Minion>();
+        this.buffsInHand = new List<Buff>();
+        this.roster = new List<Minion>();
     }
 
     private bool EnoughMoney(Buff buff) {
@@ -100,6 +103,7 @@ public class Player {
     public void Sell(Buff buff) {
         coins = Math.Min(coins + BUFF_SELL_AMOUNT, MAX_NUMBER_OF_COINS);
         buffsInHand.Remove(buff);
+        // TODO Add the minion to the store
     }
 
     public bool AddToRoster(Minion minion, int index) {
@@ -112,6 +116,20 @@ public class Player {
         if (!EnoughSpaceInRoster()) return false;
         roster.Add(minion);
         return true;
+    }
+
+    /* 
+        Removes and returns the minion from the roster
+        index: index of the minion in the roster
+    */
+    public Minion GetRosterMinion(int index) {
+        if (index >= 0 && index < roster.Count) {
+            Minion minion = roster[index];
+            roster.RemoveAt(index);
+            return minion;
+        } else {
+            throw new System.ArgumentException("Invalid Player Hand Index When Retreiving Minion", "index");
+        }
     }
 
     public void StartTurn() {

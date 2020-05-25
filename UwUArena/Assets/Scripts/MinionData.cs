@@ -52,7 +52,7 @@ public class MinionData {
             case "Thunder":
                 return Tribe.Thunder;
         }
-        throw new System.ArgumentException("Invalid Tribe Input", "original");
+        throw new System.ArgumentException("Invalid Tribe Input", "tribe");
     }
 
     private static void ParseCsv (string file) {
