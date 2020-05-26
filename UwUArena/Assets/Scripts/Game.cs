@@ -8,6 +8,8 @@ using UnityEngine;
 public class Game: MonoBehaviour {
     private List<Player> players;
 
+    private bool DEBUG_MESSAGES_ENABLED = true;
+
     // Use this for initialization
 
     private bool IsBattleOver(Player player1, Player player2, Minion p1Minion, Minion p2Minion) {
@@ -23,6 +25,35 @@ public class Game: MonoBehaviour {
 
     private int GetAliveMinionCount(Player player, Minion minion) {
         return player.GetBattleRosterSize() + (minion.IsDead() ? 0 : 1);
+    }
+
+    private void DebugMinion(Minion minion) {
+        Debug.Log(
+            "Name: " + minion.GetName()
+            + "\n" + "Attack: " + minion.GetAttack()
+            + "\n" + "Health: " + minion.GetHealth()
+            + "\n"
+        );
+    }
+
+    private void FightDebugLogs(Player player1, Player player2, Minion p1Minion, Minion p2Minion) {
+        if (!DEBUG_MESSAGES_ENABLED) return;
+        Debug.Log("Player 1 Minions:");
+        if (!p1Minion.IsDead()) {
+            DebugMinion(p1Minion);
+        }
+        foreach (Minion minion in player1.GetBattleRoster()) {
+            DebugMinion(minion);
+        }
+        Debug.Log("Player 2 Minions:");
+        if (!p2Minion.IsDead()) {
+            DebugMinion(p2Minion);
+        }
+        foreach (Minion minion in player2.GetBattleRoster()) {
+            DebugMinion(minion);
+        }
+        Debug.Log("Player 1 Health: " + player1.GetHealth());
+        Debug.Log("Player 2 Health: " + player2.GetHealth());
     }
     private void Fight(Player player1, Player player2) {
         player1.StartBattle();
@@ -50,21 +81,21 @@ public class Game: MonoBehaviour {
         int victorAliveMinionCount = GetAliveMinionCount(player1, p1Minion) > GetAliveMinionCount(player2, p2Minion)
             ? GetAliveMinionCount(player1, p1Minion) : GetAliveMinionCount(player2, p2Minion);
         loser.TakeDamage(victorAliveMinionCount);
+
+        FightDebugLogs(player1, player2, p1Minion, p2Minion);
     }
 
     private void TestGame() {
+        // Initialize Player 1
         Player player1 = new Player(health:30, coins:3);
-        Minion minion1 = new Minion("Octo Papa");
-        Minion minion3 = new Minion("Octo Papa");
-        player1.AddToRoster(minion1);
-        player1.AddToRoster(minion3);
+        player1.AddToRoster(new Minion("Octo Papa"));
+        player1.AddToRoster(new Minion("Octo Papa"));
+
+        // Initialize Player 2
         Player player2 = new Player(health:30, coins:3);
-        Minion minion2 = new Minion("Sharko");
-        Minion minion4 = new Minion("Sharko");
-        player2.AddToRoster(minion2);
-        player2.AddToRoster(minion4);
+        player2.AddToRoster(new Minion("Sharko"));
+
         Fight(player1, player2);
-        Debug.Log(player2.GetHealth());
     }
 
 	void Start () {

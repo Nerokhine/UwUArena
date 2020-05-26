@@ -167,6 +167,11 @@ public class Player {
         }
     }
 
+    public List<Minion> GetBattleRoster() {
+        return battleRoster;
+        // TODO move print battle roster here and remove this function
+    }
+
     public int GetBattleRosterSize() {
         return battleRoster.Count;
     }
