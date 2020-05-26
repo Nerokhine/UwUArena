@@ -66,6 +66,7 @@
 
 	public void Attack (Minion minion) {
 		minion.TakeDamage(attack);
+		TakeDamage(minion.attack);
 	}
 
 	/*public void GiveEffect (delegate DeathEffect, delegate EntryEffect, delegate ConditionalEffect) {

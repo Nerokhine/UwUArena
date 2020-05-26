@@ -55,10 +55,14 @@ public class Game: MonoBehaviour {
     private void TestGame() {
         Player player1 = new Player(health:30, coins:3);
         Minion minion1 = new Minion("Octo Papa");
+        Minion minion3 = new Minion("Octo Papa");
         player1.AddToRoster(minion1);
+        player1.AddToRoster(minion3);
         Player player2 = new Player(health:30, coins:3);
         Minion minion2 = new Minion("Sharko");
+        Minion minion4 = new Minion("Sharko");
         player2.AddToRoster(minion2);
+        player2.AddToRoster(minion4);
         Fight(player1, player2);
         Debug.Log(player2.GetHealth());
     }
