@@ -32,7 +32,7 @@ public class MinionData {
         return tribe;
     }
 
-    public MinionData(int level, string name, Tribe tribe, int attack, int health) {
+    private MinionData(int level, string name, Tribe tribe, int attack, int health) {
         this.level = level;
         this.name = name;
         this.tribe = tribe;
@@ -64,7 +64,7 @@ public class MinionData {
             if (!initializedRowNames) {
                 initializedRowNames = true;
             } else {
-                MinionData data = new MinionData(
+                new MinionData(
                     level:Int32.Parse(lineData[0]),
                     name:lineData[1],
                     tribe:GetTribe(lineData[2]),

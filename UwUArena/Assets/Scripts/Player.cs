@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 public class Player {
     private static int MAX_NUMBER_OF_COINS = 10;
@@ -12,6 +13,7 @@ public class Player {
     private List<Minion> minionsInHand;
     private List<Buff> buffsInHand;
     private List<Minion> roster;
+    private List<Minion> battleRoster;
     private int health;
     private int maxCoins;
     private int coins;
@@ -40,7 +42,7 @@ public class Player {
         return minionsInHand.Count < MAX_MINIONS_IN_HAND;
     }
 
-    private bool EnoughSpaceInRoster() {
+    private bool EnoughSpaceInRoster(List<Minion> roster) {
         return roster.Count < MAX_ROSTER_SIZE;
     }
 
@@ -86,35 +88,54 @@ public class Player {
         return false;
     }
 
-    public bool BuffMinion(Buff buff, Minion minion) {
-        if (minion.Buff(buff)) {
-            buffsInHand.Remove(buff);
-            return true;
+    public bool BuffMinion(Buff buff, int index) {
+        if (index >= 0 && index < roster.Count) {
+            Minion minion = roster[index];
+            if (minion.Buff(buff)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            throw new System.ArgumentException("Invalid Player Roster Index When Buffing Minion", "index");
         }
-        return false;
     }
 
     public void Sell(Minion minion) {
         coins = Math.Min(coins + MINION_SELL_AMOUNT, MAX_NUMBER_OF_COINS);
+        // TODO do this better. Add the minion to the store
+        // Possible TODO (add the buffs on it back to the store)
         roster.Remove(minion);
         minionsInHand.Remove(minion);
     }
 
     public void Sell(Buff buff) {
         coins = Math.Min(coins + BUFF_SELL_AMOUNT, MAX_NUMBER_OF_COINS);
-        buffsInHand.Remove(buff);
-        // TODO Add the minion to the store
+        //buffsInHand.Remove(buff);
+        // TODO Add the buff to the store
     }
 
     public bool AddToRoster(Minion minion, int index) {
-        if (!EnoughSpaceInRoster()) return false;
+        if (!EnoughSpaceInRoster(roster)) return false;
         roster.Insert(index, minion);
         return true;
     }
 
     public bool AddToRoster(Minion minion) {
-        if (!EnoughSpaceInRoster()) return false;
+        if (!EnoughSpaceInRoster(roster)) return false;
         roster.Add(minion);
+        return true;
+    }
+
+    public bool AddToBattleRoster(Minion minion, int index) {
+        if (!EnoughSpaceInRoster(battleRoster)) return false;
+        battleRoster.Insert(index, minion);
+        return true;
+    }
+
+    public bool AddToBattleRoster(Minion minion) {
+        if (!EnoughSpaceInRoster(battleRoster)) return false;
+        battleRoster.Add(minion);
         return true;
     }
 
@@ -128,12 +149,52 @@ public class Player {
             roster.RemoveAt(index);
             return minion;
         } else {
-            throw new System.ArgumentException("Invalid Player Hand Index When Retreiving Minion", "index");
+            throw new System.ArgumentException("Invalid Player Roster Index When Retreiving Minion", "index");
         }
+    }
+
+    /* 
+        Removes and returns the minion from the battle roster
+        index: index of the minion in the roster
+    */
+    public Minion GetBattleRosterMinion(int index) {
+        if (index >= 0 && index < battleRoster.Count) {
+            Minion minion = battleRoster[index];
+            battleRoster.RemoveAt(index);
+            return minion;
+        } else {
+            throw new System.ArgumentException("Invalid Player Battle Roster Index When Retreiving Minion", "index");
+        }
+    }
+
+    public int GetBattleRosterSize() {
+        return battleRoster.Count;
+    }
+
+    public void TakeDamage(int damage) {
+        health -= damage;
     }
 
     public void StartTurn() {
         if (maxCoins < MAX_NUMBER_OF_COINS) maxCoins ++;
         coins = maxCoins;
     }
+
+    public int GetHealth() {
+        return health;
+    }
+
+    private void InitializeBattleRoster() {
+        battleRoster = new List<Minion>();
+        foreach(Minion minion in roster) {
+            battleRoster.Add(minion.Clone());
+        }
+    }
+
+    public void StartBattle() {
+        InitializeBattleRoster();
+    }
+
+
+
 }

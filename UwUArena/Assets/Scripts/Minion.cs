@@ -58,6 +58,16 @@
 		this.level = minionData.GetLevel();
 	}
 
+	public Minion Clone() {
+		Minion clone = new Minion(name);
+		// TODO Give that minion this minion's buffs
+		return clone;
+	}
+
+	public void Attack (Minion minion) {
+		minion.TakeDamage(attack);
+	}
+
 	/*public void GiveEffect (delegate DeathEffect, delegate EntryEffect, delegate ConditionalEffect) {
 		Death = DeathEffect;
 		Entry = EntryEffect;
