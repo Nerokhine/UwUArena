@@ -10,14 +10,25 @@ public class Game: MonoBehaviour {
 
     private bool DEBUG_MESSAGES_ENABLED = true;
 
+    public List<Player> GetPlayers() {
+        return players;
+    }
+
+
+    public void GetBattleState() {
+        //return players;
+    }
+
     // Use this for initialization
 
     private bool IsBattleOver(Player player1, Player player2, Minion p1Minion, Minion p2Minion) {
-        return !((player1.GetBattleRosterSize() > 0 || !p1Minion.IsDead()) && (player2.GetBattleRosterSize() > 0 || !p2Minion.IsDead()));
+        return !((player1.GetBattleRosterSize() > 0 || !p1Minion.IsDead())
+            && (player2.GetBattleRosterSize() > 0|| !p2Minion.IsDead()));
     }
 
     private Minion GetNextMinion(Player player, Minion minion = null) {
-        if ((minion == null && player.GetBattleRosterSize() > 0) || (minion.IsDead() && player.GetBattleRosterSize() > 0)) {
+        if ((minion == null && player.GetBattleRosterSize() > 0)
+            || (minion.IsDead() && player.GetBattleRosterSize() > 0)) {
                 return player.GetBattleRosterMinion(0);
         }
         return minion;
@@ -104,6 +115,7 @@ public class Game: MonoBehaviour {
         player2.AddToRoster(new Minion("Whelp Master"));
         player2.AddToRoster(new Minion("Pheonix"));
 
+        Fight(player1, player2);
         Fight(player1, player2);
     }
 

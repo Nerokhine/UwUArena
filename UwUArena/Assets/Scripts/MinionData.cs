@@ -10,7 +10,7 @@ public class MinionData {
     private int level;
     private string name;
     private Tribe tribe;
-    private Effect effect;
+    //private Effect effect;
 
     public int GetHealth() {
         return health;
