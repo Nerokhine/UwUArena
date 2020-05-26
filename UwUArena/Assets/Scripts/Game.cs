@@ -11,7 +11,7 @@ public class Game: MonoBehaviour {
     // Use this for initialization
 
     private bool IsBattleOver(Player player1, Player player2, Minion p1Minion, Minion p2Minion) {
-        return !((player1.GetBattleRosterSize() > 0 && !p1Minion.IsDead()) && (player2.GetBattleRosterSize() > 0 && !p2Minion.IsDead()));
+        return !((player1.GetBattleRosterSize() > 0 || !p1Minion.IsDead()) && (player2.GetBattleRosterSize() > 0 || !p2Minion.IsDead()));
     }
 
     private Minion GetNextMinion(Player player, Minion minion = null) {
@@ -21,6 +21,9 @@ public class Game: MonoBehaviour {
         return minion;
     }
 
+    private int GetAliveMinionCount(Player player, Minion minion) {
+        return player.GetBattleRosterSize() + (minion.IsDead() ? 0 : 1);
+    }
     private void Fight(Player player1, Player player2) {
         player1.StartBattle();
         player2.StartBattle();
@@ -37,14 +40,16 @@ public class Game: MonoBehaviour {
             p2Minion = GetNextMinion(player2, p2Minion);
         }
         // Tie
-        if (player1.GetBattleRosterSize() == player2.GetBattleRosterSize()) return;
+        if (GetAliveMinionCount(player1, p1Minion) == GetAliveMinionCount(player2, p2Minion)) return;
 
-        Debug.Log("hi");
+        Player victor = GetAliveMinionCount(player1, p1Minion) > GetAliveMinionCount(player2, p2Minion)
+            ? player1 : player2;
+        Player loser = GetAliveMinionCount(player1, p1Minion) > GetAliveMinionCount(player2, p2Minion)
+            ? player2 : player1;
 
-        Player victor = player1.GetBattleRosterSize() > player2.GetBattleRosterSize() ? player1 : player2;
-        Player loser = player1.GetBattleRosterSize() > player2.GetBattleRosterSize() ? player2 : player1;
-
-        loser.TakeDamage(victor.GetBattleRosterSize());
+        int victorAliveMinionCount = GetAliveMinionCount(player1, p1Minion) > GetAliveMinionCount(player2, p2Minion)
+            ? GetAliveMinionCount(player1, p1Minion) : GetAliveMinionCount(player2, p2Minion);
+        loser.TakeDamage(victorAliveMinionCount);
     }
 
     private void TestGame() {
