@@ -88,12 +88,21 @@ public class Game: MonoBehaviour {
     private void TestGame() {
         // Initialize Player 1
         Player player1 = new Player(health:30, coins:3);
+        player1.AddToRoster(new Minion("Pooka"));
+        player1.AddToRoster(new Minion("Inkling"));
         player1.AddToRoster(new Minion("Octo Papa"));
-        player1.AddToRoster(new Minion("Octo Papa"));
+        player1.AddToRoster(new Minion("Sharko"));
+        player1.AddToRoster(new Minion("Bubble Blowfish"));
+        player1.AddToRoster(new Minion("Chonky Swordfish"));
 
         // Initialize Player 2
         Player player2 = new Player(health:30, coins:3);
-        player2.AddToRoster(new Minion("Sharko"));
+        player2.AddToRoster(new Minion("Fireball"));
+        player2.AddToRoster(new Minion("Wall of flame"));
+        player2.AddToRoster(new Minion("Inferno Golem"));
+        player2.AddToRoster(new Minion("Whelp Master"));
+        player2.AddToRoster(new Minion("Whelp Master"));
+        player2.AddToRoster(new Minion("Pheonix"));
 
         Fight(player1, player2);
     }
