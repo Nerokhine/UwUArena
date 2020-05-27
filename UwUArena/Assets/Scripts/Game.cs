@@ -2,10 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
 // TODO Certain Functions and objects are kept server side
-public class Game: MonoBehaviour {
+public class Game {
     private List<Player> players;
 
     private bool DEBUG_MESSAGES_ENABLED = true;
@@ -14,28 +12,8 @@ public class Game: MonoBehaviour {
         return players;
     }
 
-
-    public void GetBattleState() {
-        //return players;
-    }
-
-    // Use this for initialization
-
-    private bool IsBattleOver(Player player1, Player player2, Minion p1Minion, Minion p2Minion) {
-        return !((player1.GetBattleRosterSize() > 0 || !p1Minion.IsDead())
-            && (player2.GetBattleRosterSize() > 0|| !p2Minion.IsDead()));
-    }
-
-    private Minion GetNextMinion(Player player, Minion minion = null) {
-        if ((minion == null && player.GetBattleRosterSize() > 0)
-            || (minion.IsDead() && player.GetBattleRosterSize() > 0)) {
-                return player.GetBattleRosterMinion(0);
-        }
-        return minion;
-    }
-
-    private int GetAliveMinionCount(Player player, Minion minion) {
-        return player.GetBattleRosterSize() + (minion.IsDead() ? 0 : 1);
+    private bool IsBattleOver(Player player1, Player player2) {
+        return !((player1.GetBattleRosterSize() > 0) && (player2.GetBattleRosterSize() > 0));
     }
 
     private void DebugMinion(Minion minion) {
@@ -47,19 +25,13 @@ public class Game: MonoBehaviour {
         );
     }
 
-    private void FightDebugLogs(Player player1, Player player2, Minion p1Minion, Minion p2Minion) {
+    private void FightDebugLogs(Player player1, Player player2) {
         if (!DEBUG_MESSAGES_ENABLED) return;
         Debug.Log("Player 1 Minions:");
-        if (!p1Minion.IsDead()) {
-            DebugMinion(p1Minion);
-        }
         foreach (Minion minion in player1.GetBattleRoster()) {
             DebugMinion(minion);
         }
         Debug.Log("Player 2 Minions:");
-        if (!p2Minion.IsDead()) {
-            DebugMinion(p2Minion);
-        }
         foreach (Minion minion in player2.GetBattleRoster()) {
             DebugMinion(minion);
         }
@@ -69,31 +41,20 @@ public class Game: MonoBehaviour {
     private void Fight(Player player1, Player player2) {
         player1.StartBattle();
         player2.StartBattle();
-        Minion p1Minion = GetNextMinion(player1);
-        Minion p2Minion = GetNextMinion(player2);
 
-        while (!IsBattleOver(player1, player2, p1Minion, p2Minion)) {
-            p1Minion.Attack(p2Minion);
-            p1Minion = GetNextMinion(player1, p1Minion);
-            p2Minion = GetNextMinion(player2, p2Minion);
-            if(IsBattleOver(player1, player2, p1Minion, p2Minion)) break;
-            p2Minion.Attack(p1Minion);
-            p1Minion = GetNextMinion(player1, p1Minion);
-            p2Minion = GetNextMinion(player2, p2Minion);
+        while (!IsBattleOver(player1, player2)) {
+            player1.GetBattlingMinion().Attack(player2.GetBattlingMinion());
+            if(IsBattleOver(player1, player2)) break;
+            player2.GetBattlingMinion().Attack(player1.GetBattlingMinion());
         }
         // Tie
-        if (GetAliveMinionCount(player1, p1Minion) == GetAliveMinionCount(player2, p2Minion)) return;
+        if (player1.GetBattleRosterSize() == player2.GetBattleRosterSize()) return;
 
-        Player victor = GetAliveMinionCount(player1, p1Minion) > GetAliveMinionCount(player2, p2Minion)
-            ? player1 : player2;
-        Player loser = GetAliveMinionCount(player1, p1Minion) > GetAliveMinionCount(player2, p2Minion)
-            ? player2 : player1;
+        Player victor = player1.GetBattleRosterSize() > player2.GetBattleRosterSize() ? player1 : player2;
+        Player loser = player1.GetBattleRosterSize() > player2.GetBattleRosterSize() ? player2 : player1;
+        loser.TakeDamage(victor.GetBattleRosterSize());
 
-        int victorAliveMinionCount = GetAliveMinionCount(player1, p1Minion) > GetAliveMinionCount(player2, p2Minion)
-            ? GetAliveMinionCount(player1, p1Minion) : GetAliveMinionCount(player2, p2Minion);
-        loser.TakeDamage(victorAliveMinionCount);
-
-        FightDebugLogs(player1, player2, p1Minion, p2Minion);
+        FightDebugLogs(player1, player2);
     }
 
     private void TestGame() {
@@ -119,15 +80,9 @@ public class Game: MonoBehaviour {
         Fight(player1, player2);
     }
 
-	void Start () {
+	public void Start () {
         players = new List<Player>();
 		MinionData.Initialize();
         TestGame();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
 }

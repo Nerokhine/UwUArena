@@ -1,12 +1,15 @@
-﻿public class Minion {
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+public class Minion {
 	private int level;
 	private int health;
 	private int attack;
 	private string name;
 	private Tribe tribe;
-	//private delegate void Death();
-	//private delegate void Entry();
-	//private delegate void Conditional();
+	private Player owner;
+	private List<Minion> location;
 
 	public int GetLevel() {
 		return level;
@@ -29,10 +32,27 @@
 	}
 	
 	private void Death() {
-
+		if (location == null) throw new System.ArgumentException("Minion has no location", "location");
+		location.Remove(this);
 	}
 	public bool IsDead() {
 		return health <= 0;
+	}
+
+	public Player GetOwner() {
+		return owner;
+	}
+
+	public void SetOwner(Player owner) {
+		this.owner = owner;
+	}
+
+	public List<Minion> GetLocation() {
+		return location;
+	}
+
+	public void SetLocation(List<Minion> location) {
+		this.location = location;
 	}
 
 	public void TakeDamage (int damage) 
@@ -60,22 +80,16 @@
 
 	public Minion Clone() {
 		Minion clone = new Minion(name);
+		clone.location = location;
+		clone.owner = owner;
 		// TODO Give that minion this minion's buffs
 		return clone;
 	}
 
 	public void Attack (Minion minion) {
-		minion.TakeDamage(attack);
-		TakeDamage(minion.attack);
+		minion.TakeDamage(GetAttack());
+		TakeDamage(minion.GetAttack());
 	}
-
-	/*public void GiveEffect (delegate DeathEffect, delegate EntryEffect, delegate ConditionalEffect) {
-		Death = DeathEffect;
-		Entry = EntryEffect;
-		// Conditional effects will check their trigger on every "game action" that happens.
-		// A game action is an entry, death, attack, damage calculation, minion effect (including conditional effects)
-		Conditional = ConditionalEffect;
-	}*/
  
     public void GiveStats(int attack, int health) {
         health += health;

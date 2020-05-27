@@ -56,6 +56,8 @@ public class Player {
 
     public bool AddToHand(Minion minion) {
         if (EnoughSpaceInHand(minion)) {
+            minion.SetOwner(this);
+            minion.SetLocation(minionsInHand);
             minionsInHand.Add(minion);
             return true;
         }
@@ -117,24 +119,32 @@ public class Player {
 
     public bool AddToRoster(Minion minion, int index) {
         if (!EnoughSpaceInRoster(roster)) return false;
+        minion.SetOwner(this);
+        minion.SetLocation(roster);
         roster.Insert(index, minion);
         return true;
     }
 
     public bool AddToRoster(Minion minion) {
         if (!EnoughSpaceInRoster(roster)) return false;
+        minion.SetOwner(this);
+        minion.SetLocation(roster);
         roster.Add(minion);
         return true;
     }
 
     public bool AddToBattleRoster(Minion minion, int index) {
         if (!EnoughSpaceInRoster(battleRoster)) return false;
+        minion.SetOwner(this);
+        minion.SetLocation(battleRoster);
         battleRoster.Insert(index, minion);
         return true;
     }
 
     public bool AddToBattleRoster(Minion minion) {
         if (!EnoughSpaceInRoster(battleRoster)) return false;
+        minion.SetOwner(this);
+        minion.SetLocation(battleRoster);
         battleRoster.Add(minion);
         return true;
     }
@@ -143,7 +153,7 @@ public class Player {
         Removes and returns the minion from the roster
         index: index of the minion in the roster
     */
-    public Minion GetRosterMinion(int index) {
+    /*public Minion GetRosterMinion(int index) {
         if (index >= 0 && index < roster.Count) {
             Minion minion = roster[index];
             roster.RemoveAt(index);
@@ -151,13 +161,13 @@ public class Player {
         } else {
             throw new System.ArgumentException("Invalid Player Roster Index When Retreiving Minion", "index");
         }
-    }
+    }*/
 
     /* 
         Removes and returns the minion from the battle roster
         index: index of the minion in the roster
     */
-    public Minion GetBattleRosterMinion(int index) {
+    /*public Minion GetBattleRosterMinion(int index) {
         if (index >= 0 && index < battleRoster.Count) {
             Minion minion = battleRoster[index];
             battleRoster.RemoveAt(index);
@@ -165,7 +175,7 @@ public class Player {
         } else {
             throw new System.ArgumentException("Invalid Player Battle Roster Index When Retreiving Minion", "index");
         }
-    }
+    }*/
 
     public List<Minion> GetBattleRoster() {
         return battleRoster;
@@ -192,8 +202,13 @@ public class Player {
     private void InitializeBattleRoster() {
         battleRoster = new List<Minion>();
         foreach(Minion minion in roster) {
+            minion.SetLocation(battleRoster);
             battleRoster.Add(minion.Clone());
         }
+    }
+
+    public Minion GetBattlingMinion() {
+        return battleRoster[0];
     }
 
     public void StartBattle() {
