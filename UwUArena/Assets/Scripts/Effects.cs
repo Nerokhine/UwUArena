@@ -18,6 +18,9 @@ public class Effects {
         attackEffects = new List<Effect>();
         onDamageEffects = new List<Effect>();
         onKilledOpponentEffects = new List<Effect>();
+        if (minion.GetName() == "Fireball") {
+            attackEffects.Add((Minion opponent) => {opponent.TakeDamage(minion.GetAttack(), minion);});
+        }
     }
 
     public void OnEntry(Minion opponent) {

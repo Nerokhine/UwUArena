@@ -94,20 +94,24 @@ public class Minion {
 	}
 
 	public void Attack (Minion opponent) {
-		opponent.EnterBattle(this);
 		EnterBattle(opponent);
+		opponent.EnterBattle(this);
 
 		effects.OnAttack(opponent);
-		opponent.TakeDamage(GetAttack(), this);
-		TakeDamage(opponent.GetAttack(), opponent);
+		if (!opponent.IsDead()) {
+			opponent.TakeDamage(GetAttack(), this);
+			TakeDamage(opponent.GetAttack(), opponent);
+		}
 
 		if (opponent.IsDead()) effects.OnKilledOpponent(opponent);
 	}
 
 	public void EnterBattle (Minion opponent) {
-		if (!hasEntered) {
-			effects.OnEntry(opponent);
-			hasEntered = true;
+		if (!IsDead()) {
+			if (!hasEntered) {
+				effects.OnEntry(opponent);
+				hasEntered = true;
+			}
 		}
 	}
  
