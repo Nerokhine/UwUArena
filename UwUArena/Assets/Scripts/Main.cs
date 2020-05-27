@@ -6,8 +6,9 @@ public class Main : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Game game = new Game();
-		game.Start();
+		MinionData.Initialize();
+		Battle battle = new Battle();
+		battle.TestBattle();
 	}
 	
 	// Update is called once per frame

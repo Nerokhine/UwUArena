@@ -10,6 +10,7 @@ public class Minion {
 	private Tribe tribe;
 	private Player owner;
 	private List<Minion> location;
+	private Effects effects;
 
 	public int GetLevel() {
 		return level;
