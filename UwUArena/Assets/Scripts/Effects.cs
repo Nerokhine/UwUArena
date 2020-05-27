@@ -13,21 +13,26 @@ public class Effects {
 
     public Effects(Minion minion) {
         this.minion = minion;
+        entryEffects = new List<Effect>();
+        deathEffects = new List<Effect>();
+        attackEffects = new List<Effect>();
+        onDamageEffects = new List<Effect>();
+        onKilledOpponentEffects = new List<Effect>();
     }
 
-    public void Entry(Minion opponent) {
+    public void OnEntry(Minion opponent) {
         foreach (Effect effect in entryEffects) {
             effect(opponent);
         }
     }
 
-    public void Death(Minion opponent) {
+    public void OnDeath(Minion opponent) {
         foreach (Effect effect in deathEffects) {
             effect(opponent);
         }
     }
 
-    public void Attack(Minion opponent) {
+    public void OnAttack(Minion opponent) {
         foreach (Effect effect in attackEffects) {
             effect(opponent);
         }

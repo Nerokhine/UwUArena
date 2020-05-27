@@ -12,6 +12,8 @@ public class Minion {
 	private List<Minion> location;
 	private Effects effects;
 
+	private bool hasEntered;
+
 	public int GetLevel() {
 		return level;
 	}
@@ -32,8 +34,9 @@ public class Minion {
 		return tribe;
 	}
 	
-	private void Death() {
+	private void Death(Minion opponent) {
 		if (location == null) throw new System.ArgumentException("Minion has no location", "location");
+		effects.OnDeath(opponent);
 		location.Remove(this);
 	}
 	public bool IsDead() {
@@ -56,12 +59,13 @@ public class Minion {
 		this.location = location;
 	}
 
-	public void TakeDamage (int damage) 
+	public void TakeDamage (int damage, Minion opponent)
     {
+		effects.OnDamage(opponent);
         health -= damage;
  
 		if (IsDead()) {
-			Death();
+			Death(opponent);
 		}
 
     }
@@ -77,6 +81,8 @@ public class Minion {
 		this.attack = minionData.GetAttack();
 		this.tribe = minionData.GetTribe();
 		this.level = minionData.GetLevel();
+		this.hasEntered = false;
+		this.effects = new Effects(this);
 	}
 
 	public Minion Clone() {
@@ -87,18 +93,29 @@ public class Minion {
 		return clone;
 	}
 
-	public void Attack (Minion minion) {
-		minion.TakeDamage(GetAttack());
-		TakeDamage(minion.GetAttack());
+	public void Attack (Minion opponent) {
+		opponent.EnterBattle(this);
+		EnterBattle(opponent);
+
+		effects.OnAttack(opponent);
+		opponent.TakeDamage(GetAttack(), this);
+		TakeDamage(opponent.GetAttack(), opponent);
+
+		if (opponent.IsDead()) effects.OnKilledOpponent(opponent);
+	}
+
+	public void EnterBattle (Minion opponent) {
+		if (!hasEntered) {
+			effects.OnEntry(opponent);
+			hasEntered = true;
+		}
 	}
  
     public void GiveStats(int attack, int health) {
-        health += health;
-		attack += attack;
-
-         if (IsDead()) {
-            Death();
-		 }
+		if (attack > 0 && health > 0) {
+			health += health;
+			attack += attack;
+		}
     }
 
 }
