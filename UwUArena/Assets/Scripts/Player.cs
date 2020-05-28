@@ -14,6 +14,7 @@ public class Player {
     private List<Buff> buffsInHand;
     private List<Minion> roster;
     private List<Minion> battleRoster;
+    private List<Minion> deadBattleRoster;
     private int health;
     private int maxCoins;
     private int coins;
@@ -149,6 +150,13 @@ public class Player {
         return true;
     }
 
+    public bool AddToDeadBattleRoster(Minion minion) {
+        minion.SetOwner(this);
+        minion.SetLocation(deadBattleRoster);
+        deadBattleRoster.Add(minion);
+        return true;
+    }
+
     /* 
         Removes and returns the minion from the roster
         index: index of the minion in the roster
@@ -182,6 +190,11 @@ public class Player {
         // TODO move print battle roster here and remove this function
     }
 
+    public List<Minion> GetDeadBattleRoster() {
+        return deadBattleRoster;
+        // TODO move print battle roster here and remove this function
+    }
+
     public int GetBattleRosterSize() {
         return battleRoster.Count;
     }
@@ -201,6 +214,7 @@ public class Player {
 
     private void InitializeBattleRoster() {
         battleRoster = new List<Minion>();
+        deadBattleRoster = new List<Minion>();
         foreach(Minion minion in roster) {
             minion.SetLocation(battleRoster);
             battleRoster.Add(minion.Clone());

@@ -12,6 +12,8 @@ public class Minion {
 	private List<Minion> location;
 	private Effects effects;
 
+	int aquaticKills;
+
 	private bool hasEntered;
 
 	public int GetLevel() {
@@ -41,11 +43,23 @@ public class Minion {
 	public Tribe GetTribe() {
 		return tribe;
 	}
+
+	public int GetAquaticKills() {
+		return aquaticKills;
+	}
+	public void IncrementAquaticKills() {
+		aquaticKills ++;
+	}
+
+	public Effects GetEffects() {
+		return effects;
+	}
 	
 	private void Death(Minion opponent) {
 		if (location == null) throw new System.ArgumentException("Minion has no location", "location");
 		effects.OnDeath(opponent);
 		location.Remove(this);
+		owner.AddToDeadBattleRoster(this);
 	}
 	public bool IsDead() {
 		return health <= 0;
@@ -89,6 +103,7 @@ public class Minion {
 		this.attack = minionData.GetAttack();
 		this.tribe = minionData.GetTribe();
 		this.level = minionData.GetLevel();
+		aquaticKills = 0;
 		this.hasEntered = false;
 		this.effects = new Effects(this);
 	}
@@ -112,6 +127,7 @@ public class Minion {
 		}
 
 		if (opponent.IsDead()) effects.OnKilledOpponent(opponent);
+		if (IsDead()) opponent.GetEffects().OnKilledOpponent(this);
 	}
 
 	public void EnterBattle (Minion opponent) {

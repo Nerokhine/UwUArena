@@ -62,19 +62,21 @@ public class Battle {
         Player player1 = new Player(health:30, coins:3);
         player1.AddToRoster(new Minion("Booka"));
         player1.AddToRoster(new Minion("Inkling"));
-        player1.AddToRoster(new Minion("Octo Papa"));
         player1.AddToRoster(new Minion("Sharko"));
         player1.AddToRoster(new Minion("Bubble Blowfish"));
         player1.AddToRoster(new Minion("Chonky Swordfish"));
+        player1.AddToRoster(new Minion("Octo Papa"));
 
         // Initialize Player 2
         Player player2 = new Player(health:30, coins:3);
         player2.AddToRoster(new Minion("Fireball"));
         player2.AddToRoster(new Minion("Wall of flame"));
-        player2.AddToRoster(new Minion("Inferno Golem"));
+        //player2.AddToRoster(new Minion("Inferno Golem"));
         player2.AddToRoster(new Minion("Whelp Master"));
         player2.AddToRoster(new Minion("Whelp Master"));
-        player2.AddToRoster(new Minion("Pheonix"));
+        player2.AddToRoster(new Minion("Whelp Master"));
+        player2.AddToRoster(new Minion("Whelp Master"));
+        //player2.AddToRoster(new Minion("Pheonix"));
 
         players.Add(player1);
         players.Add(player2);
@@ -82,7 +84,7 @@ public class Battle {
         Fight(player1, player2);
     }
 
-        public void TestChonkySwordfishBattle() {
+    public void TestChonkySwordfishBattle() {
         // Initialize Player 1
         Player player1 = new Player(health:30, coins:3);
         player1.AddToRoster(new Minion("Chonky Swordfish"));

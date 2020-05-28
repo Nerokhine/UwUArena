@@ -54,26 +54,44 @@ public class EffectsData {
         return effectsData[name];
     }
 
-    private EffectsData(string name) {
+    private EffectsData(MinionData minionData) {
         onEntryEffects = new List<Effect>();
         onDeathEffects = new List<Effect>();
         onAttackEffects = new List<Effect>();
         onDamageEffects = new List<Effect>();
         onKilledOpponentEffects = new List<Effect>();
 
-        switch(name) {
-            case "Fireball":
-                /*onAttackEffects.Add((Minion minion, Minion opponent) => {
-                    opponent.TakeDamage(minion.GetAttack(), minion);
-                });*/
-                break;
+        switch(minionData.GetName()) {
+            // Chonky Boi
             case "Chonky Swordfish":
                 onDamageEffects.Add((Minion minion, Minion opponent) => {
                     minion.SetAttack(minion.GetAttack() + 1);
                 });
+                break;
+            case "Octo Papa":
+                onDamageEffects.Add((Minion minion, Minion opponent) => {
+                    int totalAquaticKills = 0;
+                    foreach (Minion deadMinion in minion.GetOwner().GetDeadBattleRoster()) {
+                        totalAquaticKills += deadMinion.GetAquaticKills();
+                    }
+                    foreach (Minion aliveMinion in minion.GetOwner().GetBattleRoster()) {
+                        totalAquaticKills += aliveMinion.GetAquaticKills();
+                    }
+                    Debug.Log("totalAquaticKills" + totalAquaticKills);
+                    minion.SetAttack(minion.GetAttack() + 3 * totalAquaticKills);
+                    minion.SetHealth(minion.GetHealth() + 3 * totalAquaticKills);
+                });
             break;
         }
-        effectsData.Add(name, this);
+        switch(minionData.GetTribe()) {
+            case Tribe.Aquatic:
+                onKilledOpponentEffects.Add((Minion minion, Minion opponent) => {
+                    Debug.Log("aquatic killed " + opponent.GetName());
+                    minion.IncrementAquaticKills();
+                });
+                break;
+        }
+        effectsData.Add(minionData.GetName(), this);
     }
 
     public static void Initialize() {
@@ -81,7 +99,7 @@ public class EffectsData {
         effectsData = new Dictionary<string, EffectsData>();
         List<MinionData> minionDataList = MinionData.GetMinionData();
         foreach (MinionData minionData in minionDataList) {
-            effectsData[minionData.GetName()] = new EffectsData(minionData.GetName());
+            effectsData[minionData.GetName()] = new EffectsData(minionData);
         }
     }
 }
