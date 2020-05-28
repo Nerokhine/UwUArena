@@ -62,7 +62,7 @@ public class Battle {
         Player player1 = new Player(health:30, coins:3);
         player1.AddToRoster(new Minion("Booka"));
         player1.AddToRoster(new Minion("Inkling"));
-        player1.AddToRoster(new Minion("Sharko"));
+        //player1.AddToRoster(new Minion("Sharko"));
         player1.AddToRoster(new Minion("Bubble Blowfish"));
         player1.AddToRoster(new Minion("Chonky Swordfish"));
         player1.AddToRoster(new Minion("Octo Papa"));

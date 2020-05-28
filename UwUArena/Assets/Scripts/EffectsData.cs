@@ -69,7 +69,7 @@ public class EffectsData {
                 });
                 break;
             case "Octo Papa":
-                onDamageEffects.Add((Minion minion, Minion opponent) => {
+                entryEffects.Add((Minion minion, Minion opponent) => {
                     int totalAquaticKills = 0;
                     foreach (Minion deadMinion in minion.GetOwner().GetDeadBattleRoster()) {
                         totalAquaticKills += deadMinion.GetAquaticKills();
