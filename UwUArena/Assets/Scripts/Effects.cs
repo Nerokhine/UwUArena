@@ -4,52 +4,49 @@ using System.Collections.Generic;
 public class Effects {
     // The minion who has these effects
     private Minion minion;
-    private delegate void Effect(Minion opponent);
-    private List<Effect> entryEffects;
-    private List<Effect> deathEffects;
-    private List<Effect> attackEffects;
+    private List<Effect> onEntryEffects;
+    private List<Effect> onDeathEffects;
+    private List<Effect> onAttackEffects;
     private List<Effect> onDamageEffects;
     private List<Effect> onKilledOpponentEffects;
 
     public Effects(Minion minion) {
         this.minion = minion;
-        entryEffects = new List<Effect>();
-        deathEffects = new List<Effect>();
-        attackEffects = new List<Effect>();
-        onDamageEffects = new List<Effect>();
-        onKilledOpponentEffects = new List<Effect>();
-        if (minion.GetName() == "Fireball") {
-            attackEffects.Add((Minion opponent) => {opponent.TakeDamage(minion.GetAttack(), minion);});
-        }
+        EffectsData effectsData = EffectsData.GetEffectsData(minion.GetName());
+        onEntryEffects = effectsData.GetOnEntryEffects();
+        onDeathEffects = effectsData.GetOnDeathEffects();
+        onAttackEffects = effectsData.GetOnAttackEffects();
+        onDamageEffects = effectsData.GetOnDamageEffects();
+        onKilledOpponentEffects = effectsData.GetOnKilledOpponentEffects();
     }
 
     public void OnEntry(Minion opponent) {
-        foreach (Effect effect in entryEffects) {
-            effect(opponent);
+        foreach (Effect effect in onEntryEffects) {
+            effect(minion, opponent);
         }
     }
 
     public void OnDeath(Minion opponent) {
-        foreach (Effect effect in deathEffects) {
-            effect(opponent);
+        foreach (Effect effect in onDeathEffects) {
+            effect(minion, opponent);
         }
     }
 
     public void OnAttack(Minion opponent) {
-        foreach (Effect effect in attackEffects) {
-            effect(opponent);
+        foreach (Effect effect in onAttackEffects) {
+            effect(minion, opponent);
         }
     }
 
     public void OnDamage(Minion opponent) {
         foreach (Effect effect in onDamageEffects) {
-            effect(opponent);
+            effect(minion, opponent);
         }
     }
 
     public void OnKilledOpponent(Minion opponent) {
         foreach (Effect effect in onKilledOpponentEffects) {
-            effect(opponent);
+            effect(minion, opponent);
         }
     }
 }

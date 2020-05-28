@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class MinionData {
     private static Dictionary<string, MinionData> minionData = new Dictionary<string, MinionData>();
+    private static List<MinionData> minionDataList = new List<MinionData>();
     private static string MINIONS_CSV_FILE = "./UwUArenaMinions.csv";
     private int health;
     private int attack;
@@ -39,6 +40,7 @@ public class MinionData {
         this.attack = attack;
         this.health = health;
         minionData.Add(name, this);
+        minionDataList.Add(this);
     }
 
     private static Tribe GetTribe(string tribe) {
@@ -77,6 +79,10 @@ public class MinionData {
 
     public static MinionData GetMinionData(string name) {
         return minionData[name];
+    }
+
+    public static List<MinionData> GetMinionData() {
+        return minionDataList;
     }
 
     public static void Initialize() {

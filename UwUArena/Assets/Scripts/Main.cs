@@ -7,6 +7,7 @@ public class Main : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		MinionData.Initialize();
+		EffectsData.Initialize();
 		Battle battle = new Battle();
 		battle.TestBattle();
 	}
