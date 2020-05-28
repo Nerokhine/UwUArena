@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 // TODO Certain Functions and objects are kept server side
 public class Battle {
-    private List<Player> players;
+    private List<Player> players = new List<Player>();
 
     private bool DEBUG_MESSAGES_ENABLED = true;
 
@@ -58,11 +58,9 @@ public class Battle {
     }
 
     public void TestBattle() {
-        players = new List<Player>();
-
         // Initialize Player 1
         Player player1 = new Player(health:30, coins:3);
-        player1.AddToRoster(new Minion("Pooka"));
+        player1.AddToRoster(new Minion("Booka"));
         player1.AddToRoster(new Minion("Inkling"));
         player1.AddToRoster(new Minion("Octo Papa"));
         player1.AddToRoster(new Minion("Sharko"));
@@ -81,6 +79,20 @@ public class Battle {
         players.Add(player1);
         players.Add(player2);
         Fight(player1, player2);
+        Fight(player1, player2);
+    }
+
+        public void TestChonkySwordfishBattle() {
+        // Initialize Player 1
+        Player player1 = new Player(health:30, coins:3);
+        player1.AddToRoster(new Minion("Chonky Swordfish"));
+
+        // Initialize Player 2
+        Player player2 = new Player(health:30, coins:3);
+        player2.AddToRoster(new Minion("Booka"));
+
+        players.Add(player1);
+        players.Add(player2);
         Fight(player1, player2);
     }
 }

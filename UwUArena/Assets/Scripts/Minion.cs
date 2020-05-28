@@ -22,8 +22,16 @@ public class Minion {
 		return health;
 	}
 
+	public void SetHealth(int health) {
+		this.health = health;
+	}
+
 	public int GetAttack() {
 		return attack;
+	}
+
+	public void SetAttack(int attack) {
+		this.attack = attack;
 	}
 
 	public string GetName() {

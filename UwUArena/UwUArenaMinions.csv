@@ -1,5 +1,5 @@
 ﻿Level,Name,Type,Attack,HP,Effect,Flavor Text,
-1,Pooka,Aquatic,1,3,"Entry: Gift (1): If an aquatic minions enters, give the minion ""can't take damage when it attacks"".",,
+1,Booka,Aquatic,1,3,"Entry: Gift (1): If an aquatic minions enters, give the minion ""can't take damage when it attacks"".",,
 1,Bubble Blowfish,Aquatic,2,1,"Death: Trap (1): When a minion enters, set its attack to 0 until it receives damage. ",,
 2,Chonky Swordfish,Aquatic,0,8,"Every time this minions takes damage, give it +1 attack.",,
 2,Inkling,Aquatic,3,4,Twin Strike,,

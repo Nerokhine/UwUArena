@@ -63,10 +63,15 @@ public class EffectsData {
 
         switch(name) {
             case "Fireball":
-                onAttackEffects.Add((Minion minion, Minion opponent) => {
+                /*onAttackEffects.Add((Minion minion, Minion opponent) => {
                     opponent.TakeDamage(minion.GetAttack(), minion);
-                });
+                });*/
                 break;
+            case "Chonky Swordfish":
+                onDamageEffects.Add((Minion minion, Minion opponent) => {
+                    minion.SetAttack(minion.GetAttack() + 1);
+                });
+            break;
         }
         effectsData.Add(name, this);
     }
