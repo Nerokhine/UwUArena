@@ -15,7 +15,7 @@
 2,Exploding Boulder,Pyro,2,1,"Death: Trap (2) When a minion enters, deal damage to it equal to this minions attack.",,
 5,Baby Colossus,Pyro,1,2,"Death: Trap (10) When a minion enters, deal damage to it equal to this minions attack.",,
 4,Wall of flame,Pyro,0,5,"Entry: Gift (5) When a pyro minion enters, give it attack equal to this minions hp.",,
-5,Pheonix,Pyro,3,2,Death: Shuffle an exact copy of this into your roster with -1/-1. ,,
+5,Pheonix,Pyro,4,10,On Attack: Shuffle an exact copy of this into your roster with -1/-1. ,,
 4,Fireball,Pyro,10,4,Entry: Deal damage equal to this minion's attack,,
 3,Inferno Golem,Pyro,8,8,"Entry: Gift (5) When a minion enters, deal 2 damage to it.",,
 3,Whelp Master,Pyro,2,5,"Death: Trap(5) When a minion enters, deal damage to it equal to the number of friendly pyro minions that died.",,
