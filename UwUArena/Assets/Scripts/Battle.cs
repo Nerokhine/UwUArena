@@ -84,7 +84,7 @@ public class Battle {
         Fight(player1, player2);
     }
 
-    public void TestChonkySwordfishBattle() {
+    public void TestChonkySwordfish() {
         // Initialize Player 1
         Player player1 = new Player(health:30, coins:3);
         player1.AddToRoster(new Minion("Chonky Swordfish"));
@@ -92,6 +92,21 @@ public class Battle {
         // Initialize Player 2
         Player player2 = new Player(health:30, coins:3);
         player2.AddToRoster(new Minion("Booka"));
+
+        players.Add(player1);
+        players.Add(player2);
+        Fight(player1, player2);
+    }
+
+    public void TestPheonix() {
+        // Initialize Player 1
+        Player player1 = new Player(health:30, coins:3);
+        player1.AddToRoster(new Minion("Pheonix"));
+
+        // Initialize Player 2
+        Player player2 = new Player(health:30, coins:3);
+        player2.AddToRoster(new Minion("Imp"));
+        player2.AddToRoster(new Minion("Treant"));
 
         players.Add(player1);
         players.Add(player2);

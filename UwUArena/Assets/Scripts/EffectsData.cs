@@ -82,7 +82,9 @@ public class EffectsData {
                 });
                 break;
             case "Pheonix":
-                onDeathEffects.Add((Minion minion, Minion opponent) => {
+                onAttackEffects.Add((Minion minion, Minion opponent) => {
+                    Debug.Log(minion.GetHealth());
+                    if (minion.GetHealth() <= 0) return;
                     Minion pheonix = minion.Clone();
                     pheonix.SetAttack(pheonix.GetAttack() - 1);
                     pheonix.SetHealth(pheonix.GetHealth() - 1);

@@ -61,6 +61,7 @@ public class Minion {
 	
 	private void Death() {
 		if (location == null) throw new System.ArgumentException("Minion has no location", "location");
+		Debug.Log("Death" + " " + name);
 		effects.OnDeath();
 		location.Remove(this);
 		owner.AddToDeadBattleRoster(this);
@@ -123,8 +124,10 @@ public class Minion {
 
 	public Minion Clone() {
 		Minion clone = new Minion(name);
-		clone.location = location;
-		clone.owner = owner;
+		clone.SetHealth(health);
+		clone.SetAttack(attack);
+		clone.SetLocation(location);
+		clone.SetOwner(owner);
 		// TODO Give that minion this minion's buffs
 		return clone;
 	}
