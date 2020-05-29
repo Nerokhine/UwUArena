@@ -91,6 +91,16 @@ public class EffectsData {
                     if (!pheonix.IsDead()) pheonix.GetLocation().Add(pheonix);
                 });
                 break;
+            case "Fish Patrol":
+                onAttackEffects.Add((Minion minion, Minion opponent) => {
+                    opponent.GetEffects().AddOnDamage((Minion attackedMinion, Minion notRelevantMinion) => {
+                        // If this minion was just attacked by fish patrol
+                        if (attackedMinion.GetOpponent() == minion) {
+                            attackedMinion.SetAttack(0);
+                        }
+                    });
+                });
+                break;
         }
         switch(minionData.GetTribe()) {
             case Tribe.Aquatic:

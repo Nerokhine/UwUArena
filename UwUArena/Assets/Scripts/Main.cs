@@ -9,7 +9,7 @@ public class Main : MonoBehaviour {
 		MinionData.Initialize();
 		EffectsData.Initialize();
 		Battle battle = new Battle();
-		battle.TestPheonix();
+		battle.TestPheonixAndFishPatrol();
 	}
 	
 	// Update is called once per frame

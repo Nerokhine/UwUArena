@@ -15,6 +15,25 @@ public class Effects {
         this.opponent = opponent;
     }
 
+    public void AddOnEntry(Effect effect) {
+        onEntryEffects.Add(effect);
+    }
+
+    public void AddOnDeath(Effect effect) {
+        onDeathEffects.Add(effect);
+    }
+    public void AddOnAttack(Effect effect) {
+        onAttackEffects.Add(effect);
+    }
+
+    public void AddOnDamage(Effect effect) {
+        onDamageEffects.Add(effect);
+    }
+
+    public void AddOnKilledOpponent(Effect effect) {
+        onKilledOpponentEffects.Add(effect);
+    }
+
     public Effects(Minion minion) {
         this.minion = minion;
         EffectsData effectsData = EffectsData.GetEffectsData(minion.GetName());

@@ -37,7 +37,11 @@ public class Minion {
 	}
 
 	public void SetAttack(int attack) {
-		this.attack = attack;
+		if (attack <= 0) {
+			this.attack = 0;
+		} else {
+			this.attack = attack;
+		}
 	}
 
 	public string GetName() {
@@ -97,13 +101,12 @@ public class Minion {
 
 	public void TakeDamage (int damage)
     {
-		effects.OnDamage();
         health -= damage;
+		effects.OnDamage();
  
 		if (IsDead()) {
 			Death();
 		}
-
     }
 
 	public bool Buff(Buff buff) {
@@ -140,8 +143,10 @@ public class Minion {
 
 		effects.OnAttack();
 		if (!opponent.IsDead()) {
-			opponent.TakeDamage(GetAttack());
-			TakeDamage(opponent.GetAttack());
+			int opponentAttack = opponent.GetAttack();
+			int thisAttack = GetAttack();
+			opponent.TakeDamage(thisAttack);
+			TakeDamage(opponentAttack);
 		}
 
 		if (opponent.IsDead()) effects.OnKilledOpponent();

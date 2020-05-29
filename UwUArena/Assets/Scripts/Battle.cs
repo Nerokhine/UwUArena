@@ -98,15 +98,18 @@ public class Battle {
         Fight(player1, player2);
     }
 
-    public void TestPheonix() {
+    public void TestPheonixAndFishPatrol() {
         // Initialize Player 1
         Player player1 = new Player(health:30, coins:3);
         player1.AddToRoster(new Minion("Pheonix"));
 
         // Initialize Player 2
         Player player2 = new Player(health:30, coins:3);
-        player2.AddToRoster(new Minion("Imp"));
-        player2.AddToRoster(new Minion("Treant"));
+        //player2.AddToRoster(new Minion("Imp"));
+        //player2.AddToRoster(new Minion("Treant"));
+        player2.AddToRoster(new Minion("Fish Patrol"));
+        player2.AddToRoster(new Minion("Fish Patrol"));
+        player2.AddToRoster(new Minion("Fish Patrol"));
 
         players.Add(player1);
         players.Add(player2);
