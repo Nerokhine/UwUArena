@@ -61,7 +61,7 @@ public class Minion {
 	
 	private void Death() {
 		if (location == null) throw new System.ArgumentException("Minion has no location", "location");
-		effects.OnDeath(opponent);
+		effects.OnDeath();
 		location.Remove(this);
 		owner.AddToDeadBattleRoster(this);
 	}
@@ -79,6 +79,7 @@ public class Minion {
 
 	public void SetOpponent(Minion opponent) {
 		this.opponent = opponent;
+		effects.SetOpponent(opponent);
 	}
 
 	public Minion GetOpponent() {
@@ -95,7 +96,7 @@ public class Minion {
 
 	public void TakeDamage (int damage)
     {
-		effects.OnDamage(opponent);
+		effects.OnDamage();
         health -= damage;
  
 		if (IsDead()) {
@@ -134,20 +135,20 @@ public class Minion {
 		EnterBattle();
 		opponent.EnterBattle();
 
-		effects.OnAttack(opponent);
+		effects.OnAttack();
 		if (!opponent.IsDead()) {
 			opponent.TakeDamage(GetAttack());
 			TakeDamage(opponent.GetAttack());
 		}
 
-		if (opponent.IsDead()) effects.OnKilledOpponent(opponent);
-		if (IsDead()) opponent.GetEffects().OnKilledOpponent(this);
+		if (opponent.IsDead()) effects.OnKilledOpponent();
+		if (IsDead()) opponent.GetEffects().OnKilledOpponent();
 	}
 
 	public void EnterBattle () {
 		if (!IsDead()) {
 			if (!hasEntered) {
-				effects.OnEntry(opponent);
+				effects.OnEntry();
 				hasEntered = true;
 			}
 		}

@@ -4,11 +4,16 @@ using System.Collections.Generic;
 public class Effects {
     // The minion who has these effects
     private Minion minion;
+    private Minion opponent;
     private List<Effect> onEntryEffects;
     private List<Effect> onDeathEffects;
     private List<Effect> onAttackEffects;
     private List<Effect> onDamageEffects;
     private List<Effect> onKilledOpponentEffects;
+
+    public void SetOpponent(Minion opponent) {
+        this.opponent = opponent;
+    }
 
     public Effects(Minion minion) {
         this.minion = minion;
@@ -20,31 +25,31 @@ public class Effects {
         onKilledOpponentEffects = effectsData.GetOnKilledOpponentEffects();
     }
 
-    public void OnEntry(Minion opponent) {
+    public void OnEntry() {
         foreach (Effect effect in onEntryEffects) {
             effect(minion, opponent);
         }
     }
 
-    public void OnDeath(Minion opponent) {
+    public void OnDeath() {
         foreach (Effect effect in onDeathEffects) {
             effect(minion, opponent);
         }
     }
 
-    public void OnAttack(Minion opponent) {
+    public void OnAttack() {
         foreach (Effect effect in onAttackEffects) {
             effect(minion, opponent);
         }
     }
 
-    public void OnDamage(Minion opponent) {
+    public void OnDamage() {
         foreach (Effect effect in onDamageEffects) {
             effect(minion, opponent);
         }
     }
 
-    public void OnKilledOpponent(Minion opponent) {
+    public void OnKilledOpponent() {
         foreach (Effect effect in onKilledOpponentEffects) {
             effect(minion, opponent);
         }
