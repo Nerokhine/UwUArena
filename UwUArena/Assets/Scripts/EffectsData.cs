@@ -69,7 +69,7 @@ public class EffectsData {
                 });
                 break;
             case "Octo Papa":
-                entryEffects.Add((Minion minion, Minion opponent) => {
+                onEntryEffects.Add((Minion minion, Minion opponent) => {
                     int totalAquaticKills = 0;
                     foreach (Minion deadMinion in minion.GetOwner().GetDeadBattleRoster()) {
                         totalAquaticKills += deadMinion.GetAquaticKills();
@@ -77,16 +77,22 @@ public class EffectsData {
                     foreach (Minion aliveMinion in minion.GetOwner().GetBattleRoster()) {
                         totalAquaticKills += aliveMinion.GetAquaticKills();
                     }
-                    Debug.Log("totalAquaticKills" + totalAquaticKills);
                     minion.SetAttack(minion.GetAttack() + 3 * totalAquaticKills);
                     minion.SetHealth(minion.GetHealth() + 3 * totalAquaticKills);
                 });
-            break;
+                break;
+            case "Pheonix":
+                onDeathEffects.Add((Minion minion, Minion opponent) => {
+                    Minion pheonix = minion.Clone();
+                    pheonix.SetAttack(pheonix.GetAttack() - 1);
+                    pheonix.SetHealth(pheonix.GetHealth() - 1);
+                    if (!pheonix.IsDead()) pheonix.GetLocation().Add(pheonix);
+                });
+                break;
         }
         switch(minionData.GetTribe()) {
             case Tribe.Aquatic:
                 onKilledOpponentEffects.Add((Minion minion, Minion opponent) => {
-                    Debug.Log("aquatic killed " + opponent.GetName());
                     minion.IncrementAquaticKills();
                 });
                 break;
