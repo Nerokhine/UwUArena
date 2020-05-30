@@ -18,14 +18,20 @@ public class Player {
     private int health;
     private int maxCoins;
     private int coins;
+    private string name;
 
-    public Player(int health, int coins) {
+    public Player(string name, int health, int coins) {
+        this.name = name;
         this.health = health;
         this.coins = coins;
         this.maxCoins = coins;
         this.minionsInHand = new List<Minion>();
         this.buffsInHand = new List<Buff>();
         this.roster = new List<Minion>();
+    }
+
+    public string GetName() {
+        return name;
     }
 
     private bool EnoughMoney(Buff buff) {

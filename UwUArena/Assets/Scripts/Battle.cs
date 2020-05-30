@@ -27,16 +27,16 @@ public class Battle {
 
     private void FightDebugLogs(Player player1, Player player2) {
         if (!DEBUG_MESSAGES_ENABLED) return;
-        Debug.Log("Player 1 Minions:");
+        Debug.Log(player1.GetName() + "'s Minions:");
         foreach (Minion minion in player1.GetBattleRoster()) {
             DebugMinion(minion);
         }
-        Debug.Log("Player 2 Minions:");
+        Debug.Log(player2.GetName() + "'s Minions:");
         foreach (Minion minion in player2.GetBattleRoster()) {
             DebugMinion(minion);
         }
-        Debug.Log("Player 1 Health: " + player1.GetHealth());
-        Debug.Log("Player 2 Health: " + player2.GetHealth());
+        Debug.Log(player1.GetName() + "'s Health: " + player1.GetHealth());
+        Debug.Log(player2.GetName() + "'s Health: " + player2.GetHealth());
     }
     private void Fight(Player player1, Player player2) {
         player1.StartBattle();
@@ -59,7 +59,7 @@ public class Battle {
 
     public void TestBattle() {
         // Initialize Player 1
-        Player player1 = new Player(health:30, coins:3);
+        Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Booka"));
         player1.AddToRoster(new Minion("Inkling"));
         //player1.AddToRoster(new Minion("Sharko"));
@@ -68,7 +68,7 @@ public class Battle {
         player1.AddToRoster(new Minion("Octo Papa"));
 
         // Initialize Player 2
-        Player player2 = new Player(health:30, coins:3);
+        Player player2 = new Player("Computer", health:30, coins:3);
         player2.AddToRoster(new Minion("Fireball"));
         player2.AddToRoster(new Minion("Wall of flame"));
         //player2.AddToRoster(new Minion("Inferno Golem"));
@@ -86,11 +86,11 @@ public class Battle {
 
     public void TestChonkySwordfish() {
         // Initialize Player 1
-        Player player1 = new Player(health:30, coins:3);
+        Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Chonky Swordfish"));
 
         // Initialize Player 2
-        Player player2 = new Player(health:30, coins:3);
+        Player player2 = new Player("Computer", health:30, coins:3);
         player2.AddToRoster(new Minion("Booka"));
 
         players.Add(player1);
@@ -98,18 +98,37 @@ public class Battle {
         Fight(player1, player2);
     }
 
-    public void TestPheonixAndFishPatrol() {
+    public void TestFishPatrol() {
         // Initialize Player 1
-        Player player1 = new Player(health:30, coins:3);
+        Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Pheonix"));
 
         // Initialize Player 2
-        Player player2 = new Player(health:30, coins:3);
+        Player player2 = new Player("Computer", health:30, coins:3);
         //player2.AddToRoster(new Minion("Imp"));
         //player2.AddToRoster(new Minion("Treant"));
         player2.AddToRoster(new Minion("Fish Patrol"));
         player2.AddToRoster(new Minion("Fish Patrol"));
         player2.AddToRoster(new Minion("Fish Patrol"));
+
+        players.Add(player1);
+        players.Add(player2);
+        Fight(player1, player2);
+    }
+
+    public void TestPheonix() {
+        // Initialize Player 1
+        Player player1 = new Player("Nik", health:30, coins:3);
+        player1.AddToRoster(new Minion("Pheonix"));
+
+        // Initialize Player 2
+        Player player2 = new Player("Computer", health:30, coins:3);
+        //player2.AddToRoster(new Minion("Imp"));
+        //player2.AddToRoster(new Minion("Treant"));
+        player2.AddToRoster(new Minion("Fireball"));
+        player2.AddToRoster(new Minion("Whelp Master"));
+        player2.AddToRoster(new Minion("Whelp Master"));
+        player2.AddToRoster(new Minion("Whelp Master"));
 
         players.Add(player1);
         players.Add(player2);
