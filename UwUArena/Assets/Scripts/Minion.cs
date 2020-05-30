@@ -101,7 +101,13 @@ public class Minion {
 
 	public void TakeDamage (int damage)
     {
-        health -= damage;
+		if (health <= 0) {
+			health -= damage;
+			effects.OnDamage();
+			return;
+		}
+		
+		health -= damage;
 		effects.OnDamage();
  
 		if (IsDead()) {
