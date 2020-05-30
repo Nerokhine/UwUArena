@@ -87,11 +87,19 @@ public class EffectsData {
                     Minion pheonix = minion.Copy();
                     minion.GetOwner().AddToBattleRoster(pheonix);
                     pheonix.SetAttack(minion.GetAttack() - 1);
-                    pheonix.SetHealth(minion.GetAttack() - 1);
+                    pheonix.SetHealth(1);
                 });
                 break;
             case "Fish Patrol":
                 onAttackEffects.Add((Minion minion, Minion opponent) => {
+                    opponent.GetEffects().AddOnDamage((Minion attackedMinion, Minion notRelevantMinion) => {
+                        // If this minion was just attacked by fish patrol
+                        if (attackedMinion.GetOpponent() == minion) {
+                            attackedMinion.SetAttack(0);
+                        }
+                    });
+                });
+                onDamageEffects.Add((Minion minion, Minion opponent) => {
                     opponent.GetEffects().AddOnDamage((Minion attackedMinion, Minion notRelevantMinion) => {
                         // If this minion was just attacked by fish patrol
                         if (attackedMinion.GetOpponent() == minion) {
