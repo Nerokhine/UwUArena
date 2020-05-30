@@ -122,6 +122,15 @@ public class EffectsData {
                     minion.GetOwner().AddGifts(effect, 2);
                 });
                 break;
+            case "Baby Colossus":
+                onDeathEffects.Add((Minion minion, Minion opponent) => {
+                    int attack = minion.GetAttack();
+                    Effect effect = (Minion trappedMinion, Minion notRelevantMinion) => {
+                        trappedMinion.TakeDamage(attack);
+                    };
+                    minion.GetOpponent().GetOwner().AddTraps(effect, 5);
+                });
+                break;
         }
         switch(minionData.GetTribe()) {
             case Tribe.Aquatic:

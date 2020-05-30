@@ -42,32 +42,34 @@ public class Player {
             clone.AddToDeadBattleRoster(minion.Copy());
         }
 
-        clone.CloneTraps(this);
-        clone.CloneGifts(this);
+        clone.traps = CloneTraps();
+        clone.gifts = CloneGifts();
 
         return clone;
     }
 
-    public void CloneTraps(Player player) {
-        traps = new List<List<Effect>>();
-        foreach(List<Effect> trapEntry in player.traps) {
+    public List<List<Effect>> CloneTraps() {
+        List<List<Effect>> newTraps = new List<List<Effect>>();
+        foreach(List<Effect> trapEntry in traps) {
             List<Effect> newTrapEntry = new List<Effect>();
             foreach(Effect effect in trapEntry) {
                 newTrapEntry.Add(effect);
             }
-            traps.Add(newTrapEntry);
+            newTraps.Add(newTrapEntry);
         }
+        return newTraps;
     }
 
-    public void CloneGifts(Player player) {
-        gifts = new List<List<Effect>>();
-        foreach(List<Effect> giftEntry in player.gifts) {
+    public List<List<Effect>> CloneGifts() {
+        List<List<Effect>> newGifts = new List<List<Effect>>();
+        foreach(List<Effect> giftEntry in gifts) {
             List<Effect> newGiftEntry = new List<Effect>();
             foreach(Effect effect in giftEntry) {
                 newGiftEntry.Add(effect);
             }
-            gifts.Add(newGiftEntry);
+            newGifts.Add(newGiftEntry);
         }
+        return newGifts;
     }
 
     public void AddTraps(Effect effect, int numberOfTraps) {

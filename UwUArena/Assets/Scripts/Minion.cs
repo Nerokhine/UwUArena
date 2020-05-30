@@ -137,19 +137,19 @@ public class Minion {
 	}
 
 	public void Attack (Minion opponent) {
-		//Debug.Log(name + " Stats: " + attack + "/" + health);
-		//Debug.Log(opponent.name + " Stats: " + opponent.attack + "/" + opponent.health);
 		opponent.SetOpponent(this);
 		SetOpponent(opponent);
 		EnterBattle();
 		opponent.EnterBattle();
 
-		effects.OnAttack();
 		if (!opponent.IsDead()) {
-			int opponentAttack = opponent.GetAttack();
-			int thisAttack = GetAttack();
-			opponent.TakeDamage(thisAttack);
-			TakeDamage(opponentAttack);
+			effects.OnAttack();
+			if (!opponent.IsDead()) {
+				int opponentAttack = opponent.GetAttack();
+				int thisAttack = GetAttack();
+				opponent.TakeDamage(thisAttack);
+				TakeDamage(opponentAttack);
+			}
 		}
 
 		if (opponent.IsDead()) effects.OnKilledOpponent();
