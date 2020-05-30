@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 public class Player {
     private static int MAX_NUMBER_OF_COINS = 10;
     private static int MAX_BUFFS_IN_HAND = 6;
@@ -10,15 +11,17 @@ public class Player {
     private static int BUFF_COST = 3;
     private static int MINION_SELL_AMOUNT = 1;
     private static int BUFF_SELL_AMOUNT = 1;
+    private int health;
+    private int maxCoins;
+    private int coins;
+    private string name;
     private List<Minion> minionsInHand;
     private List<Buff> buffsInHand;
     private List<Minion> roster;
     private List<Minion> battleRoster;
     private List<Minion> deadBattleRoster;
-    private int health;
-    private int maxCoins;
-    private int coins;
-    private string name;
+    private List<List<Effect>> gifts;
+    private List<List<Effect>> traps;
 
     public Player Clone() {
         Player clone = new Player(name, health, coins);
@@ -39,7 +42,78 @@ public class Player {
             clone.AddToDeadBattleRoster(minion.Copy());
         }
 
+        clone.CloneTraps(this);
+        clone.CloneGifts(this);
+
         return clone;
+    }
+
+    public void CloneTraps(Player player) {
+        traps = new List<List<Effect>>();
+        foreach(List<Effect> trapEntry in player.traps) {
+            List<Effect> newTrapEntry = new List<Effect>();
+            foreach(Effect effect in trapEntry) {
+                newTrapEntry.Add(effect);
+            }
+            traps.Add(newTrapEntry);
+        }
+    }
+
+    public void CloneGifts(Player player) {
+        gifts = new List<List<Effect>>();
+        foreach(List<Effect> giftEntry in player.gifts) {
+            List<Effect> newGiftEntry = new List<Effect>();
+            foreach(Effect effect in giftEntry) {
+                newGiftEntry.Add(effect);
+            }
+            gifts.Add(newGiftEntry);
+        }
+    }
+
+    public void AddTraps(Effect effect, int numberOfTraps) {
+        foreach(List<Effect> trapEntry in traps) {
+            if (numberOfTraps <= 0) break;
+            trapEntry.Add(effect);
+            numberOfTraps --;
+        }
+        while (numberOfTraps > 0) {
+            List<Effect> trapEntry = new List<Effect>();
+            trapEntry.Add(effect);
+            traps.Add(trapEntry);
+            numberOfTraps --;
+        }
+    }
+
+    public void AddGifts(Effect effect, int numberOfGifts) {
+        foreach(List<Effect> giftEntry in gifts) {
+            if (numberOfGifts <= 0) break;
+            giftEntry.Add(effect);
+            numberOfGifts --;
+        }
+        while (numberOfGifts > 0) {
+            List<Effect> giftEntry = new List<Effect>();
+            giftEntry.Add(effect);
+            gifts.Add(giftEntry);
+            numberOfGifts --;
+        }
+    }
+
+    public void ApplyTraps(Minion minion) {
+        if (traps.Count <= 0) return;
+        List<Effect> trapEntry = traps[0];
+        traps.RemoveAt(0);
+        foreach(Effect effect in trapEntry) {
+            minion.GetEffects().AddOnEntry(effect);
+        }
+    }
+
+    public void ApplyGifts(Minion minion) {
+        if (gifts.Count <= 0) return;
+        List<Effect> giftEntry = gifts[0];
+        gifts.RemoveAt(0);
+        foreach(Effect effect in giftEntry) {
+            minion.GetEffects().AddOnEntry(effect);
+        }
     }
     public Player(string name, int health, int coins) {
         this.name = name;
@@ -51,6 +125,8 @@ public class Player {
         this.roster = new List<Minion>();
         this.battleRoster = new List<Minion>();
         this.deadBattleRoster = new List<Minion>();
+        this.gifts = new List<List<Effect>>();
+        this.traps = new List<List<Effect>>();
     }
 
     public string GetName() {

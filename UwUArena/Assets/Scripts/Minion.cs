@@ -159,6 +159,8 @@ public class Minion {
 	public void EnterBattle () {
 		if (!IsDead()) {
 			if (!hasEntered) {
+				GetOwner().ApplyGifts(this);
+				GetOwner().ApplyTraps(this);
 				effects.OnEntry();
 				hasEntered = true;
 			}
