@@ -20,6 +20,27 @@ public class Player {
     private int coins;
     private string name;
 
+    public Player Clone() {
+        Player clone = new Player(name, health, coins);
+        foreach(Minion minion in minionsInHand) {
+            clone.AddToHand(minion.Copy());
+        }
+        foreach(Buff buff in buffsInHand) {
+            // TODO buff copy and buff class
+            clone.AddToHand(buff);
+        }
+        foreach(Minion minion in roster) {
+            clone.AddToRoster(minion.Copy());
+        }
+        foreach(Minion minion in battleRoster) {
+            clone.AddToBattleRoster(minion.Copy());
+        }
+        foreach(Minion minion in deadBattleRoster) {
+            clone.AddToDeadBattleRoster(minion.Copy());
+        }
+
+        return clone;
+    }
     public Player(string name, int health, int coins) {
         this.name = name;
         this.health = health;
@@ -28,6 +49,8 @@ public class Player {
         this.minionsInHand = new List<Minion>();
         this.buffsInHand = new List<Buff>();
         this.roster = new List<Minion>();
+        this.battleRoster = new List<Minion>();
+        this.deadBattleRoster = new List<Minion>();
     }
 
     public string GetName() {

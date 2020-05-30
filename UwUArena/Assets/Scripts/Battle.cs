@@ -5,8 +5,16 @@ using UnityEngine;
 // TODO Certain Functions and objects are kept server side
 public class Battle {
     private List<Player> players = new List<Player>();
+    private List<List<Player>> battleRecord;
 
     private bool DEBUG_MESSAGES_ENABLED = true;
+
+    public void AddToBattleRecord(Player player1, Player player2) {
+        List<Player> record = new List<Player>();
+        record.Add(player1.Clone());
+        record.Add(player2.Clone());
+        battleRecord.Add(record);
+    }
 
     public List<Player> GetPlayers() {
         return players;
@@ -16,35 +24,41 @@ public class Battle {
         return !((player1.GetBattleRosterSize() > 0) && (player2.GetBattleRosterSize() > 0));
     }
 
-    private void DebugMinion(Minion minion) {
-        Debug.Log(
-            "Name: " + minion.GetName()
-            + "\n" + "Attack: " + minion.GetAttack()
-            + "\n" + "Health: " + minion.GetHealth()
-            + "\n"
-        );
+    private string DebugMinion(Minion minion) {
+        return "Name: " + minion.GetName() + ", Attack: " + minion.GetAttack() + ", Health: " + minion.GetHealth() + "\n";
     }
 
-    private void FightDebugLogs(Player player1, Player player2) {
+    private void FightDebugLogs() {
         if (!DEBUG_MESSAGES_ENABLED) return;
-        Debug.Log(player1.GetName() + "'s Minions:");
-        foreach (Minion minion in player1.GetBattleRoster()) {
-            DebugMinion(minion);
+        string debug = "";
+        foreach(List<Player> playerList in battleRecord) {
+            Player player1 = playerList[0];
+            Player player2 = playerList[1];
+            debug += player1.GetName() + "'s Minions:\n";
+            foreach (Minion minion in player1.GetBattleRoster()) {
+                debug += DebugMinion(minion);
+            }
+            debug += player2.GetName() + "'s Minions:\n";
+            foreach (Minion minion in player2.GetBattleRoster()) {
+                debug += DebugMinion(minion);
+            }
         }
-        Debug.Log(player2.GetName() + "'s Minions:");
-        foreach (Minion minion in player2.GetBattleRoster()) {
-            DebugMinion(minion);
-        }
-        Debug.Log(player1.GetName() + "'s Health: " + player1.GetHealth());
-        Debug.Log(player2.GetName() + "'s Health: " + player2.GetHealth());
+        Debug.Log(debug);
+        Player lastPlayer1 = battleRecord[battleRecord.Count - 1][0];
+        Player lastPlayer2 = battleRecord[battleRecord.Count - 1][1];
+        Debug.Log(lastPlayer1.GetName() + "'s Health: " + lastPlayer1.GetHealth());
+        Debug.Log(lastPlayer2.GetName() + "'s Health: " + lastPlayer2.GetHealth());
     }
     private void Fight(Player player1, Player player2) {
+        battleRecord = new List<List<Player>>();
         player1.StartBattle();
         player2.StartBattle();
 
         while (!IsBattleOver(player1, player2)) {
+            AddToBattleRecord(player1, player2);
             player1.GetBattlingMinion().Attack(player2.GetBattlingMinion());
             if(IsBattleOver(player1, player2)) break;
+            AddToBattleRecord(player1, player2);
             player2.GetBattlingMinion().Attack(player1.GetBattlingMinion());
         }
         // Tie
@@ -54,7 +68,8 @@ public class Battle {
         Player loser = player1.GetBattleRosterSize() > player2.GetBattleRosterSize() ? player2 : player1;
         loser.TakeDamage(victor.GetBattleRosterSize());
 
-        FightDebugLogs(player1, player2);
+        AddToBattleRecord(player1, player2);
+        FightDebugLogs();
     }
 
     public void TestBattle() {
