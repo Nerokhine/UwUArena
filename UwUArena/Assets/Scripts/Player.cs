@@ -222,8 +222,7 @@ public class Player {
         battleRoster = new List<Minion>();
         deadBattleRoster = new List<Minion>();
         foreach(Minion minion in roster) {
-            minion.SetLocation(battleRoster);
-            battleRoster.Add(minion.ExactClone());
+            AddToBattleRoster(minion.Copy());
         }
     }
 

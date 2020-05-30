@@ -134,17 +134,6 @@ public class Minion {
 		return clone;
 	}
 
-	public Minion ExactClone() {
-		Minion clone = new Minion(name);
-		clone.health = health;
-		clone.attack = attack;
-		clone.effects = effects.Clone(clone);
-		clone.SetLocation(location);
-		clone.SetOwner(owner);
-		// TODO Give that minion this minion's buffs
-		return clone;
-	}
-
 	public void Attack (Minion opponent) {
 		Debug.Log(name + " Stats" + attack + "/" + health);
 		Debug.Log(opponent.name + " Stats" + opponent.attack + "/" + opponent.health);
