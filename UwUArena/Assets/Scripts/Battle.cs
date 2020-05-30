@@ -38,10 +38,12 @@ public class Battle {
             foreach (Minion minion in player1.GetBattleRoster()) {
                 debug += DebugMinion(minion);
             }
+            debug += "\n";
             debug += player2.GetName() + "'s Minions:\n";
             foreach (Minion minion in player2.GetBattleRoster()) {
                 debug += DebugMinion(minion);
             }
+            debug += "\n==========================================\n";
         }
         Player lastPlayer1 = battleRecord[battleRecord.Count - 1][0];
         Player lastPlayer2 = battleRecord[battleRecord.Count - 1][1];
