@@ -43,11 +43,11 @@ public class Battle {
                 debug += DebugMinion(minion);
             }
         }
-        Debug.Log(debug);
         Player lastPlayer1 = battleRecord[battleRecord.Count - 1][0];
         Player lastPlayer2 = battleRecord[battleRecord.Count - 1][1];
-        Debug.Log(lastPlayer1.GetName() + "'s Health: " + lastPlayer1.GetHealth());
-        Debug.Log(lastPlayer2.GetName() + "'s Health: " + lastPlayer2.GetHealth());
+        debug += lastPlayer1.GetName() + "'s Health: " + lastPlayer1.GetHealth() + "\n";
+        debug += lastPlayer2.GetName() + "'s Health: " + lastPlayer2.GetHealth() + "\n";
+        Debug.Log(debug);
     }
     private void Fight(Player player1, Player player2) {
         battleRecord = new List<List<Player>>();
