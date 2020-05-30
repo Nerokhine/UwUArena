@@ -142,14 +142,14 @@ public class Player {
     }
 
     private bool EnoughSpaceInHand(Buff buff) {
-        return buffsInHand.Count < MAX_BUFFS_IN_HAND;
+        return buffsInHand.Count <= MAX_BUFFS_IN_HAND;
     }
     private bool EnoughSpaceInHand(Minion minion) {
-        return minionsInHand.Count < MAX_MINIONS_IN_HAND;
+        return minionsInHand.Count <= MAX_MINIONS_IN_HAND;
     }
 
     private bool EnoughSpaceInRoster(List<Minion> roster) {
-        return roster.Count < MAX_ROSTER_SIZE;
+        return roster.Count <= MAX_ROSTER_SIZE;
     }
 
     private bool CanBuy(Minion minion) {
