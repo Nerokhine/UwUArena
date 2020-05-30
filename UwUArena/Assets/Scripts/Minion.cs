@@ -106,7 +106,7 @@ public class Minion {
 			effects.OnDamage();
 			return;
 		}
-		
+
 		health -= damage;
 		effects.OnDamage();
  
@@ -148,7 +148,7 @@ public class Minion {
 		EnterBattle();
 		opponent.EnterBattle();
 
-		if (!opponent.IsDead()) {
+		if (!opponent.IsDead() && !IsDead()) {
 			effects.OnAttack();
 			if (!opponent.IsDead()) {
 				int opponentAttack = opponent.GetAttack();

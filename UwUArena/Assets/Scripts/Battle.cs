@@ -191,12 +191,15 @@ public class Battle {
         Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Pheonix"));
         player1.AddToRoster(new Minion("Pheonix"));
+        player1.AddToRoster(new Minion("Pheonix"));
+        player1.AddToRoster(new Minion("Pheonix"));
 
         // Initialize Player 2
         Player player2 = new Player("Computer", health:30, coins:3);
         player2.AddToRoster(new Minion("Wall of flame"));
         player2.AddToRoster(new Minion("Baby Colossus"));
         player2.AddToRoster(new Minion("Baby Colossus"));
+        player2.AddToRoster(new Minion("Imp"));
         player2.AddToRoster(new Minion("Imp"));
 
         players.Add(player1);
