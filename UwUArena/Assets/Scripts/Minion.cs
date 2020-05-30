@@ -161,6 +161,8 @@ public class Minion {
 			if (!hasEntered) {
 				GetOwner().ApplyGifts(this);
 				GetOwner().ApplyTraps(this);
+				effects.Gifts();
+				effects.Traps();
 				effects.OnEntry();
 				hasEntered = true;
 			}

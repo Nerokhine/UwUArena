@@ -1,0 +1,1 @@
+//public delegate void Gift(Minion minion, Minion opponent);

@@ -105,6 +105,15 @@ public class EffectsData {
                     minion.SetAttack(minion.GetAttack() + 1);
                 });
                 break;
+            case "Wall of flame":
+                onEntryEffects.Add((Minion minion, Minion opponent) => {
+                    int health = minion.GetHealth();
+                    Effect effect = (Minion giftedMinion, Minion notRelevantMinion) => {
+                        giftedMinion.SetAttack(giftedMinion.GetAttack() + health);
+                    };
+                    minion.GetOwner().AddGifts(effect, 2);
+                });
+                break;
         }
         switch(minionData.GetTribe()) {
             case Tribe.Aquatic:

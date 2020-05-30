@@ -103,7 +103,7 @@ public class Player {
         List<Effect> trapEntry = traps[0];
         traps.RemoveAt(0);
         foreach(Effect effect in trapEntry) {
-            minion.GetEffects().AddOnEntry(effect);
+            minion.GetEffects().AddTrap(effect);
         }
     }
 
@@ -112,7 +112,7 @@ public class Player {
         List<Effect> giftEntry = gifts[0];
         gifts.RemoveAt(0);
         foreach(Effect effect in giftEntry) {
-            minion.GetEffects().AddOnEntry(effect);
+            minion.GetEffects().AddGift(effect);
         }
     }
     public Player(string name, int health, int coins) {

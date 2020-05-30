@@ -5,6 +5,8 @@ public class Effects {
     // The minion who has these effects
     private Minion minion;
     private Minion opponent;
+    private List<Effect> trapEffects;
+    private List<Effect> giftEffects;
     private List<Effect> onEntryEffects;
     private List<Effect> onDeathEffects;
     private List<Effect> onAttackEffects;
@@ -13,6 +15,14 @@ public class Effects {
 
     public void SetOpponent(Minion opponent) {
         this.opponent = opponent;
+    }
+
+    public void AddGift(Effect effect) {
+        giftEffects.Add(effect);
+    }
+
+    public void AddTrap(Effect effect) {
+        trapEffects.Add(effect);
     }
 
     public void AddOnEntry(Effect effect) {
@@ -34,8 +44,26 @@ public class Effects {
         onKilledOpponentEffects.Add(effect);
     }
 
+    public List<Effect> GetOnEntry() {
+        return onEntryEffects;
+    }
+    public List<Effect> GetOnDeath() {
+        return onDeathEffects;
+    }
+    public List<Effect> GetOnAttack() {
+        return onAttackEffects;
+    }
+    public List<Effect> GetOnDamage() {
+        return onDamageEffects;
+    }
+    public List<Effect> GetOnKilledOpponent() {
+        return onKilledOpponentEffects;
+    }
+
     public Effects Clone(Minion minion) {
         Effects effects = new Effects(minion);
+        effects.giftEffects = new List<Effect>();
+        effects.trapEffects = new List<Effect>();
         effects.onEntryEffects = new List<Effect>();
         effects.onDeathEffects = new List<Effect>();
         effects.onAttackEffects = new List<Effect>();
@@ -96,6 +124,18 @@ public class Effects {
 
     public void OnKilledOpponent() {
         foreach (Effect effect in onKilledOpponentEffects) {
+            effect(minion, opponent);
+        }
+    }
+
+    public void Traps() {
+        foreach (Effect effect in trapEffects) {
+            effect(minion, opponent);
+        }
+    }
+
+    public void Gifts() {
+        foreach (Effect effect in giftEffects) {
             effect(minion, opponent);
         }
     }

@@ -165,4 +165,27 @@ public class Battle {
         players.Add(player2);
         Fight(player1, player2);
     }
+
+    public void TestWallOfFlame() {
+        // Initialize Player 1
+        Player player1 = new Player("Nik", health:30, coins:3);
+        player1.AddToRoster(new Minion("Imp"));
+        player1.AddToRoster(new Minion("Pheonix"));
+        player1.AddToRoster(new Minion("Pheonix"));
+        player1.AddToRoster(new Minion("Pheonix"));
+        player1.AddToRoster(new Minion("Pheonix"));
+        player1.AddToRoster(new Minion("Pheonix"));
+
+        // Initialize Player 2
+        Player player2 = new Player("Computer", health:30, coins:3);
+        player2.AddToRoster(new Minion("Wall of flame"));
+        player2.AddToRoster(new Minion("Wall of flame"));
+        player2.AddToRoster(new Minion("Pheonix"));
+        player2.AddToRoster(new Minion("Pheonix"));
+        player2.AddToRoster(new Minion("Pheonix"));
+
+        players.Add(player1);
+        players.Add(player2);
+        Fight(player1, player2);
+    }
 }
