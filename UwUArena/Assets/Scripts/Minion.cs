@@ -64,7 +64,6 @@ public class Minion {
 	}
 	
 	private void Death() {
-		Debug.Log(attack);
 		Debug.Log(name + " owned by " + GetOwner().GetName() + " has died");
 		if (location == null) throw new System.ArgumentException(name + " has no location", "location");
 		effects.OnDeath();
@@ -126,10 +125,20 @@ public class Minion {
 		this.effects = new Effects(this);
 	}
 
-	public Minion Clone() {
+	public Minion Copy() {
 		Minion clone = new Minion(name);
 		clone.health = health;
 		clone.attack = attack;
+		clone.effects = effects.Clone(clone);
+		// TODO Give that minion this minion's buffs
+		return clone;
+	}
+
+	public Minion ExactClone() {
+		Minion clone = new Minion(name);
+		clone.health = health;
+		clone.attack = attack;
+		clone.effects = effects.Clone(clone);
 		clone.SetLocation(location);
 		clone.SetOwner(owner);
 		// TODO Give that minion this minion's buffs
@@ -137,6 +146,8 @@ public class Minion {
 	}
 
 	public void Attack (Minion opponent) {
+		Debug.Log(name + " Stats" + attack + "/" + health);
+		Debug.Log(opponent.name + " Stats" + opponent.attack + "/" + opponent.health);
 		opponent.SetOpponent(this);
 		SetOpponent(opponent);
 		EnterBattle();

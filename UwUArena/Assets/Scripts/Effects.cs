@@ -34,6 +34,32 @@ public class Effects {
         onKilledOpponentEffects.Add(effect);
     }
 
+    public Effects Clone(Minion minion) {
+        Effects effects = new Effects(minion);
+        effects.onEntryEffects = new List<Effect>();
+        effects.onDeathEffects = new List<Effect>();
+        effects.onAttackEffects = new List<Effect>();
+        effects.onDamageEffects = new List<Effect>();
+        effects.onKilledOpponentEffects = new List<Effect>();
+        foreach(Effect effect in onEntryEffects) {
+            effects.AddOnEntry(effect);
+        }
+        foreach(Effect effect in onDeathEffects) {
+            effects.AddOnDeath(effect);
+        }
+        foreach(Effect effect in onAttackEffects) {
+            effects.AddOnAttack(effect);
+        }
+        foreach(Effect effect in onDamageEffects) {
+            effects.AddOnDamage(effect);
+        }
+        foreach(Effect effect in onKilledOpponentEffects) {
+            effects.AddOnKilledOpponent(effect);
+        }
+
+        return effects;
+    }
+
     public Effects(Minion minion) {
         this.minion = minion;
         EffectsData effectsData = EffectsData.GetEffectsData(minion.GetName());

@@ -84,10 +84,10 @@ public class EffectsData {
             case "Pheonix":
                 onDeathEffects.Add((Minion minion, Minion opponent) => {
                     if (minion.GetAttack() < 1) return;
-                    Minion pheonix = minion.Clone();
-                    pheonix.GetOwner().AddToBattleRoster(pheonix);
-                    pheonix.SetAttack(pheonix.GetAttack() - 1);
-                    pheonix.SetHealth(pheonix.GetAttack() - 1);
+                    Minion pheonix = minion.Copy();
+                    minion.GetOwner().AddToBattleRoster(pheonix);
+                    pheonix.SetAttack(minion.GetAttack() - 1);
+                    pheonix.SetHealth(minion.GetAttack() - 1);
                 });
                 break;
             case "Fish Patrol":
