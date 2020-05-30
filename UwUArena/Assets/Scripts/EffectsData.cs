@@ -100,6 +100,11 @@ public class EffectsData {
                     });
                 });
                 break;
+            case "Imp":
+                onAttackEffects.Add((Minion minion, Minion opponent) => {
+                    minion.SetAttack(minion.GetAttack() + 1);
+                });
+                break;
         }
         switch(minionData.GetTribe()) {
             case Tribe.Aquatic:
