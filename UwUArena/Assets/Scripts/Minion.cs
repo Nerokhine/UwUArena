@@ -68,8 +68,8 @@ public class Minion {
 	}
 	
 	private void Death() {
-		//Debug.Log(name + " owned by " + GetOwner().GetName() + " has died");
 		if (location == null) throw new System.ArgumentException(name + " has no location", "location");
+		opponent.GetEffects().OnKilledOpponent();
 		effects.OnDeath();
 		location.Remove(this);
 		owner.AddToDeadBattleRoster(this);
@@ -146,24 +146,26 @@ public class Minion {
 		return clone;
 	}
 
-	public void Attack (Minion opponent) {
+	public void Fight(Minion opponent) {
 		opponent.SetOpponent(this);
 		SetOpponent(opponent);
 		EnterBattle();
 		opponent.EnterBattle();
+		Attack(opponent);
+	}
 
-		if (!opponent.IsDead() && !IsDead()) {
-			effects.OnAttack();
-			if (!opponent.IsDead()) {
-				int opponentAttack = opponent.GetAttack();
-				int thisAttack = GetAttack();
-				opponent.TakeDamage(thisAttack);
-				TakeDamage(opponentAttack);
-			}
+	public void Attack (Minion opponent) {
+		if (IsDead() || opponent.IsDead()) {
+			GetOwner().GetBattlingMinion().Fight(opponent.GetOwner().GetBattlingMinion());
+			return;
 		}
-
-		if (opponent.IsDead()) effects.OnKilledOpponent();
-		if (IsDead()) opponent.GetEffects().OnKilledOpponent();
+		effects.OnAttack();
+		if (!opponent.IsDead()) {
+			int opponentAttack = opponent.GetAttack();
+			int thisAttack = GetAttack();
+			opponent.TakeDamage(thisAttack);
+			TakeDamage(opponentAttack);
+		}
 	}
 
 	public void EnterBattle () {

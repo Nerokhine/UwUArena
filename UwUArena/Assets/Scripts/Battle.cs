@@ -105,9 +105,9 @@ public class Battle {
         player2.StartBattle(this);
 
         while (!IsBattleOver(player1, player2)) {
-            player1.GetBattlingMinion().Attack(player2.GetBattlingMinion());
+            player1.GetBattlingMinion().Fight(player2.GetBattlingMinion());
             if(IsBattleOver(player1, player2)) break;
-            player2.GetBattlingMinion().Attack(player1.GetBattlingMinion());
+            player2.GetBattlingMinion().Fight(player1.GetBattlingMinion());
         }
         // Tie
         if (player1.GetBattleRosterSize() == player2.GetBattleRosterSize()) return;

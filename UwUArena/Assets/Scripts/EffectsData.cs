@@ -137,6 +137,11 @@ public class EffectsData {
                     minion.SetHealth(minion.GetHealth() * 2);
                 });
                 break;
+            case "Inkling":
+                onEntryEffects.Add((Minion minion, Minion opponent) => {
+                    minion.Fight(opponent);
+                });
+                break;
         }
         switch(minionData.GetTribe()) {
             case Tribe.Aquatic:
