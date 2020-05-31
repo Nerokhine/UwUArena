@@ -162,7 +162,7 @@ public class Minion {
 			return;
 		}
 		effects.OnAttack();
-		if (!opponent.IsDead()) {
+		if (!IsDead() && !opponent.IsDead()) {
 			int opponentAttack = opponent.GetAttack();
 			int thisAttack = GetAttack();
 			opponent.TakeDamage(thisAttack);

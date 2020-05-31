@@ -1,1 +1,0 @@
-//public delegate void Trap(Minion minion, Minion opponent);
