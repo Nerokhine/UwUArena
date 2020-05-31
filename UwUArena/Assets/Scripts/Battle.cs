@@ -270,4 +270,19 @@ public class Battle {
         players.Add(player2);
         Fight(player1, player2);
     }
+
+    public void TestInkling() {
+        // Initialize Player 1
+        Player player1 = new Player("Nik", health:30, coins:3);
+        player1.AddToRoster(new Minion("Inkling"));
+
+        // Initialize Player 2
+        Player player2 = new Player("Computer", health:30, coins:3);
+        player2.AddToRoster(new Minion("Wall of flame"));
+        player2.AddToRoster(new Minion("Inkling"));
+
+        players.Add(player1);
+        players.Add(player2);
+        Fight(player1, player2);
+    }
 }

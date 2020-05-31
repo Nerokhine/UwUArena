@@ -156,7 +156,9 @@ public class Minion {
 
 	public void Attack (Minion opponent) {
 		if (IsDead() || opponent.IsDead()) {
-			GetOwner().GetBattlingMinion().Fight(opponent.GetOwner().GetBattlingMinion());
+			Minion minion = GetOwner().GetBattlingMinion();
+			Minion newOpponent = opponent.GetOwner().GetBattlingMinion();
+			if (minion != null && newOpponent != null) minion.Fight(newOpponent);
 			return;
 		}
 		effects.OnAttack();
@@ -171,12 +173,12 @@ public class Minion {
 	public void EnterBattle () {
 		if (!IsDead()) {
 			if (!hasEntered) {
+				hasEntered = true;
 				GetOwner().ApplyGifts(this);
 				GetOwner().ApplyTraps(this);
 				effects.Gifts();
 				effects.Traps();
 				effects.OnEntry();
-				hasEntered = true;
 			}
 		}
 	}

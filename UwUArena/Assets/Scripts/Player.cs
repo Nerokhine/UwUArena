@@ -341,6 +341,7 @@ public class Player {
     }
 
     public Minion GetBattlingMinion() {
+        if (battleRoster.Count <= 0) return null;
         return battleRoster[0];
     }
 
