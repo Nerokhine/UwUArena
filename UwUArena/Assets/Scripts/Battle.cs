@@ -215,8 +215,8 @@ public class Battle {
     public void TestWallOfFlame() {
         // Initialize Player 1
         Player player1 = new Player("Nik", health:30, coins:3);
-        player1.AddToRoster(new Minion("Fish Patrol"));
-        player1.AddToRoster(new Minion("Pheonix"));
+        //player1.AddToRoster(new Minion("Fish Patrol"));
+        //player1.AddToRoster(new Minion("Pheonix"));
         player1.AddToRoster(new Minion("Pheonix"));
         player1.AddToRoster(new Minion("Pheonix"));
         player1.AddToRoster(new Minion("Pheonix"));
