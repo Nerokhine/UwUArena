@@ -22,6 +22,7 @@ public class Player {
     private List<Minion> deadBattleRoster;
     private List<List<Effect>> gifts;
     private List<List<Effect>> traps;
+    private Battle battle;
 
     public Player Clone() {
         Player clone = new Player(name, health, coins);
@@ -46,6 +47,18 @@ public class Player {
         clone.gifts = CloneGifts();
 
         return clone;
+    }
+
+    public Battle GetBattle() {
+        return battle;
+    }
+
+    public List<List<Effect>> GetTraps() {
+        return traps;
+    }
+
+    public List<List<Effect>> GetGifts() {
+        return gifts;
     }
 
     public List<List<Effect>> CloneTraps() {
@@ -331,7 +344,8 @@ public class Player {
         return battleRoster[0];
     }
 
-    public void StartBattle() {
+    public void StartBattle(Battle battle) {
+        this.battle = battle;
         InitializeBattleRoster();
     }
 

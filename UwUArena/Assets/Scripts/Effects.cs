@@ -99,44 +99,58 @@ public class Effects {
     }
 
     public void OnEntry() {
+        minion.AddToBattleRecord("Start OnEntry for " + minion.GetName() + "\n");
         foreach (Effect effect in onEntryEffects) {
             effect(minion, opponent);
         }
+        minion.AddToBattleRecord("Finish OnEntry for " + minion.GetName() + "\n");
     }
 
     public void OnDeath() {
+        minion.AddToBattleRecord("Start OnDeath for " + minion.GetName() + "\n");
         foreach (Effect effect in onDeathEffects) {
             effect(minion, opponent);
         }
+        minion.AddToBattleRecord("Finish OnDeath for " + minion.GetName() + "\n");
     }
 
     public void OnAttack() {
+        minion.AddToBattleRecord("Start OnAttack for " + minion.GetName() + "\n");
         foreach (Effect effect in onAttackEffects) {
             effect(minion, opponent);
         }
+        minion.AddToBattleRecord("Finish OnAttack for " + minion.GetName() + "\n");
     }
 
     public void OnDamage() {
+        minion.AddToBattleRecord("Start OnDamage for " + minion.GetName() + "\n");
         foreach (Effect effect in onDamageEffects) {
             effect(minion, opponent);
         }
+        minion.AddToBattleRecord("Finish OnDamage for " + minion.GetName() + "\n");
     }
 
     public void OnKilledOpponent() {
+        minion.AddToBattleRecord("Start OnKilledOpponent for " + minion.GetName() + "\n");
         foreach (Effect effect in onKilledOpponentEffects) {
             effect(minion, opponent);
         }
+        minion.AddToBattleRecord("Finish OnKilledOpponent for " + minion.GetName() + "\n");
     }
 
     public void Traps() {
+        minion.AddToBattleRecord("Start Traps for " + minion.GetName() + "\n");
         foreach (Effect effect in trapEffects) {
             effect(minion, opponent);
         }
+        minion.AddToBattleRecord("Finish Traps for " + minion.GetName() + "\n");
     }
 
     public void Gifts() {
+        minion.AddToBattleRecord("Start Gifts for " + minion.GetName() + "\n");
         foreach (Effect effect in giftEffects) {
             effect(minion, opponent);
         }
+        minion.AddToBattleRecord("Finish Gifts for " + minion.GetName() + "\n");
     }
 }

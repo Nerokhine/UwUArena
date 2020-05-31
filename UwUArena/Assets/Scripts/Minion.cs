@@ -44,6 +44,10 @@ public class Minion {
 		}
 	}
 
+	public void AddToBattleRecord(string message) {
+		GetOwner().GetBattle().AddToBattleRecord(GetOwner(), opponent.GetOwner(), message);
+	}
+
 	public string GetName() {
 		return name;
 	}
