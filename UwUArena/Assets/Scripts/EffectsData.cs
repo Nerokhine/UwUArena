@@ -131,6 +131,12 @@ public class EffectsData {
                     minion.GetOpponent().GetOwner().AddTraps(effect, 5);
                 });
                 break;
+            case "Butt sniffer":
+                onEntryEffects.Add((Minion minion, Minion opponent) => {
+                    minion.SetAttack(minion.GetAttack() * 2);
+                    minion.SetHealth(minion.GetHealth() * 2);
+                });
+                break;
         }
         switch(minionData.GetTribe()) {
             case Tribe.Aquatic:
