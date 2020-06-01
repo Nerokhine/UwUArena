@@ -296,28 +296,11 @@ Transform:
   m_Father: {fileID: 1096910452}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &879059317 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1074929064592626, guid: 8e58dc79a16b6408db6430443f98972d,
-    type: 2}
-  m_PrefabInternal: {fileID: 54601754}
 --- !u!224 &879059318 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224385079561169342, guid: 8e58dc79a16b6408db6430443f98972d,
     type: 2}
   m_PrefabInternal: {fileID: 54601754}
---- !u!114 &879059321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 879059317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4462f46648e87498280b17ca60263cbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minionObject: {fileID: 879059317}
 --- !u!1 &965176726
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,7 +448,7 @@ RectTransform:
   m_GameObject: {fileID: 1096910448}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 80}
-  m_LocalScale: {x: 0.11978222, y: 0.11978222, z: 0.11978222}
+  m_LocalScale: {x: 0.12689017, y: 0.12689017, z: 0.12689017}
   m_Children:
   - {fileID: 751160578}
   - {fileID: 879059318}

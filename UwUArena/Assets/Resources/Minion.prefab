@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 224385079561169342}
   - component: {fileID: 222384662323586666}
   - component: {fileID: 114843567746530230}
-  - component: {fileID: 114333651524204044}
   m_Layer: 5
   m_Name: Minion
   m_TagString: Untagged
@@ -599,18 +598,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
---- !u!114 &114333651524204044
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1074929064592626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4462f46648e87498280b17ca60263cbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minionObject: {fileID: 1074929064592626}
 --- !u!114 &114357281165470544
 MonoBehaviour:
   m_ObjectHideFlags: 1

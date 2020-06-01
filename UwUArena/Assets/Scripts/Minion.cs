@@ -126,10 +126,11 @@ public class Minion {
 
 	public void CreateMinionObject() {
 		minionObject = GameObject.Instantiate(Resources.Load("Minion", typeof(GameObject))) as GameObject;
-		minionObject.transform.parent = GameObject.Find("Canvas").transform;
+		minionObject.transform.SetParent(GameObject.Find("Canvas").transform);
 		RectTransform rectTransform = minionObject.GetComponent<RectTransform>();
 		rectTransform.localPosition = new Vector3(0, 0, 0);
 		rectTransform.localScale = new Vector3 (1, 1, 1);
+		//minionObject.GetComponent<
 	}
 
 	public Minion (string name) {
