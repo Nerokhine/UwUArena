@@ -9,6 +9,7 @@ public class Minion {
 	private int health;
 	private int attack;
 	private string name;
+	private string effectText;
 	private Tribe tribe;
 	private Player owner;
 	private Minion opponent;
@@ -125,13 +126,22 @@ public class Minion {
 		return false;
 	}
 
-	public void CreateMinionObject() {
+	public GameObject CreateMinionObject(int xPosition, int yPosition) {
 		minionObject = GameObject.Instantiate(Resources.Load("Minion", typeof(GameObject))) as GameObject;
 		minionObject.transform.SetParent(GameObject.Find("Canvas").transform);
 		RectTransform rectTransform = minionObject.GetComponent<RectTransform>();
-		rectTransform.localPosition = new Vector3(0, 0, 0);
+		rectTransform.localPosition = new Vector3(xPosition, yPosition, 0);
 		rectTransform.localScale = new Vector3 (1, 1, 1);
 		minionObject.transform.Find("Name").GetComponent<Text>().text = name;
+		minionObject.transform.Find("Attack").GetComponent<Text>().text = attack.ToString();
+		minionObject.transform.Find("Health").GetComponent<Text>().text = health.ToString();
+		minionObject.transform.Find("Effect").GetComponent<Text>().text = effectText;
+		return minionObject;
+	}
+
+	public GameObject CopyToMinionObject(GameObject minionObject) {
+		// TODO
+		return minionObject;
 	}
 
 	public Minion (string name) {
@@ -141,6 +151,7 @@ public class Minion {
 		this.attack = minionData.GetAttack();
 		this.tribe = minionData.GetTribe();
 		this.level = minionData.GetLevel();
+		this.effectText = minionData.GetEffectText();
 		aquaticKills = 0;
 		this.hasEntered = false;
 		this.effects = new Effects(this);
@@ -184,7 +195,6 @@ public class Minion {
 	public void EnterBattle () {
 		if (!IsDead()) {
 			if (!hasEntered) {
-				CreateMinionObject();
 				hasEntered = true;
 				GetOwner().ApplyGifts(this);
 				GetOwner().ApplyTraps(this);

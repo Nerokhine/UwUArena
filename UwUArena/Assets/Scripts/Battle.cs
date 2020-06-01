@@ -9,6 +9,8 @@ public class Battle {
 
     private bool DEBUG_MESSAGES_ENABLED = true;
 
+    private static bool tempDebug = false;
+
     public Battle() {
 
     }
@@ -86,6 +88,10 @@ public class Battle {
             debug += DebugGifts(player1);
             debug += player1.GetName() + "'s Minions:\n";
             foreach (Minion minion in player1.GetBattleRoster()) {
+                if (!tempDebug) {
+                    minion.CreateMinionObject(0, 0);
+                    tempDebug = true;
+                }
                 debug += DebugMinion(minion);
             }
             debug += "\n";

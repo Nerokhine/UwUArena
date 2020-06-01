@@ -157,7 +157,7 @@ Prefab:
     - target: {fileID: 224385079561169342, guid: 8e58dc79a16b6408db6430443f98972d,
         type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 224385079561169342, guid: 8e58dc79a16b6408db6430443f98972d,
         type: 2}
@@ -172,12 +172,12 @@ Prefab:
     - target: {fileID: 224385079561169342, guid: 8e58dc79a16b6408db6430443f98972d,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 300
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 224385079561169342, guid: 8e58dc79a16b6408db6430443f98972d,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 300
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 224385079561169342, guid: 8e58dc79a16b6408db6430443f98972d,
         type: 2}
@@ -211,7 +211,17 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1074929064592626, guid: 8e58dc79a16b6408db6430443f98972d, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114577638468385912, guid: 8e58dc79a16b6408db6430443f98972d,
+        type: 2}
+      propertyPath: m_FontData.m_FontSize
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114577638468385912, guid: 8e58dc79a16b6408db6430443f98972d,
+        type: 2}
+      propertyPath: m_Text
+      value: Dragon Girl Effect
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e58dc79a16b6408db6430443f98972d, type: 2}
@@ -448,7 +458,7 @@ RectTransform:
   m_GameObject: {fileID: 1096910448}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 80}
-  m_LocalScale: {x: 0.12689017, y: 0.12689017, z: 0.12689017}
+  m_LocalScale: {x: 0.11978222, y: 0.11978222, z: 0.11978222}
   m_Children:
   - {fileID: 751160578}
   - {fileID: 879059318}
