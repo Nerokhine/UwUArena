@@ -15,8 +15,19 @@ public class Battle {
 
     public void AddToBattleRecord(Player player1, Player player2, string message) {
         List<Player> record = new List<Player>();
-        record.Add(player1.Clone());
-        record.Add(player2.Clone());
+        if (battleRecord.Count > 1) {
+            string name = battleRecord[battleRecord.Count - 2].Key[0].GetName();
+            if (player1.GetName() == name) {
+                record.Add(player1.Clone());
+                record.Add(player2.Clone());
+            } else {
+                record.Add(player2.Clone());
+                record.Add(player1.Clone());
+            }
+        } else {
+            record.Add(player1.Clone());
+            record.Add(player2.Clone());
+        }
         battleRecord.Add(new KeyValuePair<List<Player>,string>(record, message));
     }
 
@@ -119,6 +130,7 @@ public class Battle {
                 i++;
                 xPosition += 400;
             }
+            Debug.Log(valuePair.Value);
             yield return new WaitForSeconds(ANIMATION_SPEED);
         }
         Player lastPlayer1 = battleRecord[battleRecord.Count - 1].Key[0];
