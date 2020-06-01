@@ -127,8 +127,14 @@ public class Minion {
 	}
 
 	public GameObject CreateMinionObject(int xPosition, int yPosition) {
-		minionObject = GameObject.Instantiate(Resources.Load("Minion", typeof(GameObject))) as GameObject;
-		minionObject.transform.SetParent(GameObject.Find("Canvas").transform);
+		if (minionObject == null) {
+			minionObject = GameObject.Instantiate(Resources.Load("Minion", typeof(GameObject))) as GameObject;
+			minionObject.transform.SetParent(GameObject.Find("Canvas").transform);
+		}
+		return UpdateMinionObject(minionObject, xPosition, yPosition);
+	}
+
+	public GameObject UpdateMinionObject(GameObject minionObject, int xPosition, int yPosition) {
 		RectTransform rectTransform = minionObject.GetComponent<RectTransform>();
 		rectTransform.localPosition = new Vector3(xPosition, yPosition, 0);
 		rectTransform.localScale = new Vector3 (1, 1, 1);
@@ -136,11 +142,6 @@ public class Minion {
 		minionObject.transform.Find("Attack").GetComponent<Text>().text = attack.ToString();
 		minionObject.transform.Find("Health").GetComponent<Text>().text = health.ToString();
 		minionObject.transform.Find("Effect").GetComponent<Text>().text = effectText;
-		return minionObject;
-	}
-
-	public GameObject CopyToMinionObject(GameObject minionObject) {
-		// TODO
 		return minionObject;
 	}
 

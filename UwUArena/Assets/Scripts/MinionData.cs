@@ -46,7 +46,6 @@ public class MinionData {
         this.attack = attack;
         this.health = health;
         this.effectText = effectText;
-        Debug.Log(effectText);
         minionData.Add(name, this);
         minionDataList.Add(this);
     }

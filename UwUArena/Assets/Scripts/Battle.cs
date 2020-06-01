@@ -6,10 +6,7 @@ using UnityEngine;
 public class Battle {
     private List<Player> players = new List<Player>();
     private List<KeyValuePair<List<Player>, string>> battleRecord;
-
     private bool DEBUG_MESSAGES_ENABLED = true;
-
-    private static bool tempDebug = false;
 
     public Battle() {
 
@@ -76,6 +73,44 @@ public class Battle {
         return debug;
     }
 
+    private void Animate() {
+        List<GameObject> player1BattleRoster = new List<GameObject>();
+        List<GameObject> player2BattleRoster = new List<GameObject>();
+        foreach(KeyValuePair<List<Player>,string> valuePair in battleRecord) {
+            List<Player> playerList = valuePair.Key;
+            Player player1 = playerList[0];
+            Player player2 = playerList[1];
+            int i = 0;
+            foreach (Minion minion in player1.GetBattleRoster()) {
+                if (!minion.IsDead()) {
+                    if (player1BattleRoster.Count <= i) {
+                        player1BattleRoster.Add(minion.CreateMinionObject(0, 0));
+                    } else {
+                        minion.UpdateMinionObject(player1BattleRoster[i], 0, 0);
+                    }
+                } else {
+                    player2BattleRoster.RemoveAt(i);
+                }
+                i++;
+            }
+            i = 0;
+            foreach (Minion minion in player2.GetBattleRoster()) {
+                if (!minion.IsDead()) {
+                    if (player2BattleRoster.Count <= i) {
+                        player2BattleRoster.Add(minion.CreateMinionObject(0, 0));
+                    } else {
+                        minion.UpdateMinionObject(player2BattleRoster[i], 0, 0);
+                    }
+                } else {
+                    player2BattleRoster.RemoveAt(i);
+                }
+                i++;
+            }
+        }
+        Player lastPlayer1 = battleRecord[battleRecord.Count - 1].Key[0];
+        Player lastPlayer2 = battleRecord[battleRecord.Count - 1].Key[1];
+    }
+
     private void FightDebugLogs() {
         if (!DEBUG_MESSAGES_ENABLED) return;
         string debug = "";
@@ -88,10 +123,6 @@ public class Battle {
             debug += DebugGifts(player1);
             debug += player1.GetName() + "'s Minions:\n";
             foreach (Minion minion in player1.GetBattleRoster()) {
-                if (!tempDebug) {
-                    minion.CreateMinionObject(0, 0);
-                    tempDebug = true;
-                }
                 debug += DebugMinion(minion);
             }
             debug += "\n";
