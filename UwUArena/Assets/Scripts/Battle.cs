@@ -7,7 +7,7 @@ public class Battle {
     private List<Player> players = new List<Player>();
     private List<KeyValuePair<List<Player>, string>> battleRecord;
     private bool DEBUG_MESSAGES_ENABLED = true;
-    private int ANIMATION_SPEED = 1;
+    private float ANIMATION_SPEED = 0.1F;
 
     public Battle() {
 
@@ -105,8 +105,8 @@ public class Battle {
                         minion.UpdateMinionObject(player1BattleRoster[i], xPosition, yPosition);
                     }
                 } else {
-                    GameObject.Destroy(player2BattleRoster[i]);
-                    player2BattleRoster.RemoveAt(i);
+                    if(player1BattleRoster[i] != null) GameObject.Destroy(player1BattleRoster[i]);
+                    player1BattleRoster.RemoveAt(i);
                 }
                 i++;
                 xPosition += 400;
@@ -124,7 +124,7 @@ public class Battle {
                         minion.UpdateMinionObject(player2BattleRoster[i], xPosition, yPosition);
                     }
                 } else {
-                    GameObject.Destroy(player2BattleRoster[i]);
+                    if(player2BattleRoster[i] != null) GameObject.Destroy(player2BattleRoster[i]);
                     player2BattleRoster.RemoveAt(i);
                 }
                 i++;
