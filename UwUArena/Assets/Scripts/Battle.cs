@@ -8,7 +8,8 @@ public class Battle {
     private List<Player> players = new List<Player>();
     private List<KeyValuePair<List<Player>, string>> battleRecord;
     private bool DEBUG_MESSAGES_ENABLED = true;
-    private float ANIMATION_SPEED = 1F;
+    private float ANIMATION_SPEED = 0.1F;
+    private float TRANSLATE_SPEED = 1F;
 
     public Battle() {
 
@@ -86,6 +87,22 @@ public class Battle {
         return debug;
     }
 
+    public IEnumerator AnimateTranslate(GameObject gameObject, int x, int y) {
+        Debug.Log("hi");
+        RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
+        float incrementerX;
+        float incrementerY;
+        incrementerX = (rectTransform.localPosition.x - x)/(rectTransform.localPosition.y - y);
+        incrementerY = (rectTransform.localPosition.y - y)/(rectTransform.localPosition.x - x);
+        Debug.Log(incrementerX);
+        while (rectTransform.localPosition.y + incrementerY < y || rectTransform.localPosition.x + incrementerX < x) {
+            rectTransform.localPosition = new Vector3(rectTransform.localPosition.x + incrementerX,
+                rectTransform.localPosition.y + incrementerY, 0);
+            yield return new WaitForSeconds(TRANSLATE_SPEED);
+        }
+        rectTransform.localPosition = new Vector3(x, y, 0);
+    }
+
     public IEnumerator AnimateBattle() {
         List<GameObject> player1BattleRoster = new List<GameObject>();
         List<GameObject> player2BattleRoster = new List<GameObject>();
@@ -102,7 +119,9 @@ public class Battle {
                 if (player1BattleRoster.Count <= i) {
                     player1BattleRoster.Add(minion.CreateMinionObject(xPosition, yPosition));
                 } else {
-                    minion.UpdateMinionObject(player1BattleRoster[i], xPosition, yPosition);
+                    minion.UpdateMinionObject(player1BattleRoster[i]);
+                    Debug.Log("yo");
+                    AnimateTranslate(player1BattleRoster[i], xPosition, yPosition);
                 }
                 i++;
                 xPosition -= 400;
@@ -120,7 +139,8 @@ public class Battle {
                 if (player2BattleRoster.Count <= i) {
                     player2BattleRoster.Add(minion.CreateMinionObject(xPosition, yPosition));
                 } else {
-                    minion.UpdateMinionObject(player2BattleRoster[i], xPosition, yPosition);
+                    minion.UpdateMinionObject(player2BattleRoster[i]);
+                    AnimateTranslate(player2BattleRoster[i], xPosition, yPosition);
                 }
                 i++;
                 xPosition -= 400;

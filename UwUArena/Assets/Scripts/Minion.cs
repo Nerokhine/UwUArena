@@ -145,6 +145,14 @@ public class Minion {
 		return minionObject;
 	}
 
+	public GameObject UpdateMinionObject(GameObject minionObject) {
+		minionObject.transform.Find("Name").GetComponent<Text>().text = name;
+		minionObject.transform.Find("Attack").GetComponent<Text>().text = attack.ToString();
+		minionObject.transform.Find("Health").GetComponent<Text>().text = health.ToString();
+		minionObject.transform.Find("Effect").GetComponent<Text>().text = effectText;
+		return minionObject;
+	}
+
 	public Minion (string name) {
 		MinionData minionData = MinionData.GetMinionData(name);
 		this.name = name;

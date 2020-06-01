@@ -84,7 +84,7 @@ public static class Test {
         StartBattle(player1, player2);
     }
 
-    public static void TestWallOfFlame() {
+    public static Battle TestWallOfFlame() {
         // Initialize Player 1
         Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Pheonix"));
@@ -98,7 +98,7 @@ public static class Test {
         player2.AddToRoster(new Minion("Wall of flame"));
         player2.AddToRoster(new Minion("Pheonix"));
 
-        StartBattle(player1, player2);
+        return StartBattle(player1, player2);
     }
     
     public static void TestBabyColossus() {

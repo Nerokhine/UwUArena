@@ -16,7 +16,7 @@ public class Main : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Initialize();
-		battle = Test.TestBattle();
+		battle = Test.TestWallOfFlame();
 		StartCoroutine(battle.AnimateBattle());
 		//Test.TestInkling();
 	}
