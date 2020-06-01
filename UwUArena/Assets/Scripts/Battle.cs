@@ -97,38 +97,40 @@ public class Battle {
             int yPosition = 200;
             foreach (Minion minion in player1.GetBattleRoster()) {
                 if (i > 0) yPosition = 600;
-                if (i == 1) xPosition = -800;
+                if (i == 1) xPosition = 800;
                 if (!minion.IsDead()) {
                     if (player1BattleRoster.Count <= i) {
                         player1BattleRoster.Add(minion.CreateMinionObject(xPosition, yPosition));
                     } else {
                         minion.UpdateMinionObject(player1BattleRoster[i], xPosition, yPosition);
                     }
-                } else {
-                    if(player1BattleRoster[i] != null) GameObject.Destroy(player1BattleRoster[i]);
-                    player1BattleRoster.RemoveAt(i);
                 }
                 i++;
-                xPosition += 400;
+                xPosition -= 400;
+            }
+            for (int j = i; j < player1BattleRoster.Count; j++) {
+                if (player1BattleRoster[j] != null) GameObject.Destroy(player1BattleRoster[j]);
+                player1BattleRoster.RemoveAt(j);
             }
             i = 0;
             xPosition = 0;
             yPosition = -200;
             foreach (Minion minion in player2.GetBattleRoster()) {
                 if (i > 0) yPosition = -600;
-                if (i == 1) xPosition = -800;
+                if (i == 1) xPosition = 800;
                 if (!minion.IsDead()) {
                     if (player2BattleRoster.Count <= i) {
                         player2BattleRoster.Add(minion.CreateMinionObject(xPosition, yPosition));
                     } else {
                         minion.UpdateMinionObject(player2BattleRoster[i], xPosition, yPosition);
                     }
-                } else {
-                    if(player2BattleRoster[i] != null) GameObject.Destroy(player2BattleRoster[i]);
-                    player2BattleRoster.RemoveAt(i);
                 }
                 i++;
-                xPosition += 400;
+                xPosition -= 400;
+            }
+            for (int j = i; j < player2BattleRoster.Count; j++) {
+                if (player2BattleRoster[j] != null) GameObject.Destroy(player2BattleRoster[j]);
+                player2BattleRoster.RemoveAt(j);
             }
             Debug.Log(valuePair.Value);
             yield return new WaitForSeconds(ANIMATION_SPEED);
