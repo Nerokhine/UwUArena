@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 // TODO Certain Functions and objects are kept server side
 public class Battle {
     private List<Player> players = new List<Player>();
     private List<KeyValuePair<List<Player>, string>> battleRecord;
     private bool DEBUG_MESSAGES_ENABLED = true;
-    private float ANIMATION_SPEED = 0.1F;
+    private float ANIMATION_SPEED = 0.5F;
 
     public Battle() {
 
@@ -132,7 +133,7 @@ public class Battle {
                 if (player2BattleRoster[j] != null) GameObject.Destroy(player2BattleRoster[j]);
                 player2BattleRoster.RemoveAt(j);
             }
-            Debug.Log(valuePair.Value);
+            GameObject.Find("Info").GetComponent<Text>().text = valuePair.Value;
             yield return new WaitForSeconds(ANIMATION_SPEED);
         }
         Player lastPlayer1 = battleRecord[battleRecord.Count - 1].Key[0];
