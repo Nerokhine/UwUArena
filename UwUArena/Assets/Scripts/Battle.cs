@@ -8,7 +8,7 @@ public class Battle {
     private List<Player> players = new List<Player>();
     private List<KeyValuePair<List<Player>, string>> battleRecord;
     private bool DEBUG_MESSAGES_ENABLED = true;
-    private float ANIMATION_SPEED = 0.5F;
+    private float ANIMATION_SPEED = 1F;
 
     public Battle() {
 
@@ -99,12 +99,10 @@ public class Battle {
             foreach (Minion minion in player1.GetBattleRoster()) {
                 if (i > 0) yPosition = 600;
                 if (i == 1) xPosition = 800;
-                if (!minion.IsDead()) {
-                    if (player1BattleRoster.Count <= i) {
-                        player1BattleRoster.Add(minion.CreateMinionObject(xPosition, yPosition));
-                    } else {
-                        minion.UpdateMinionObject(player1BattleRoster[i], xPosition, yPosition);
-                    }
+                if (player1BattleRoster.Count <= i) {
+                    player1BattleRoster.Add(minion.CreateMinionObject(xPosition, yPosition));
+                } else {
+                    minion.UpdateMinionObject(player1BattleRoster[i], xPosition, yPosition);
                 }
                 i++;
                 xPosition -= 400;
@@ -119,12 +117,10 @@ public class Battle {
             foreach (Minion minion in player2.GetBattleRoster()) {
                 if (i > 0) yPosition = -600;
                 if (i == 1) xPosition = 800;
-                if (!minion.IsDead()) {
-                    if (player2BattleRoster.Count <= i) {
-                        player2BattleRoster.Add(minion.CreateMinionObject(xPosition, yPosition));
-                    } else {
-                        minion.UpdateMinionObject(player2BattleRoster[i], xPosition, yPosition);
-                    }
+                if (player2BattleRoster.Count <= i) {
+                    player2BattleRoster.Add(minion.CreateMinionObject(xPosition, yPosition));
+                } else {
+                    minion.UpdateMinionObject(player2BattleRoster[i], xPosition, yPosition);
                 }
                 i++;
                 xPosition -= 400;
