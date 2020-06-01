@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public class Minion {
+	private GameObject minionObject;
 	private int level;
 	private int health;
 	private int attack;
@@ -123,6 +124,14 @@ public class Minion {
 		return false;
 	}
 
+	public void CreateMinionObject() {
+		minionObject = GameObject.Instantiate(Resources.Load("Minion", typeof(GameObject))) as GameObject;
+		minionObject.transform.parent = GameObject.Find("Canvas").transform;
+		RectTransform rectTransform = minionObject.GetComponent<RectTransform>();
+		rectTransform.localPosition = new Vector3(0, 0, 0);
+		rectTransform.localScale = new Vector3 (1, 1, 1);
+	}
+
 	public Minion (string name) {
 		MinionData minionData = MinionData.GetMinionData(name);
 		this.name = name;
@@ -173,6 +182,7 @@ public class Minion {
 	public void EnterBattle () {
 		if (!IsDead()) {
 			if (!hasEntered) {
+				CreateMinionObject();
 				hasEntered = true;
 				GetOwner().ApplyGifts(this);
 				GetOwner().ApplyTraps(this);
