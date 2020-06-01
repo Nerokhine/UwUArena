@@ -9,6 +9,10 @@ public class Battle {
 
     private bool DEBUG_MESSAGES_ENABLED = true;
 
+    public Battle() {
+
+    }
+
     public void AddToBattleRecord(Player player1, Player player2, string message) {
         List<Player> record = new List<Player>();
         record.Add(player1.Clone());

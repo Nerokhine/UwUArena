@@ -1,10 +1,11 @@
 public static class Test {
 
-    private static void StartBattle(Player player1, Player player2) {
+    private static Battle StartBattle(Player player1, Player player2) {
         Battle battle = new Battle();
         battle.Fight(player1, player2);
+        return battle;
     }
-    public static void TestBattle() {
+    public static Battle TestBattle() {
         // Initialize Player 1
         Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Booka"));
@@ -22,7 +23,8 @@ public static class Test {
         player2.AddToRoster(new Minion("Whelp Master"));
         player2.AddToRoster(new Minion("Whelp Master"));
 
-        StartBattle(player1, player2);
+        Battle battle = StartBattle(player1, player2);
+        return battle;
     }
 
     public static void TestChonkySwordfish() {

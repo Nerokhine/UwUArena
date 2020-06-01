@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Main : MonoBehaviour {
 
+	public Battle battle;
+
+	public GameObject card;
+
 	private void Initialize(){
 		MinionData.Initialize();
 		EffectsData.Initialize();
@@ -12,7 +16,8 @@ public class Main : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Initialize();
-		Test.TestInkling();
+		battle = Test.TestBattle();
+		//Test.TestInkling();
 	}
 	
 	// Update is called once per frame
