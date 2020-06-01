@@ -7,6 +7,7 @@ public class Battle {
     private List<Player> players = new List<Player>();
     private List<KeyValuePair<List<Player>, string>> battleRecord;
     private bool DEBUG_MESSAGES_ENABLED = true;
+    private int ANIMATION_SPEED = 1;
 
     public Battle() {
 
@@ -73,7 +74,7 @@ public class Battle {
         return debug;
     }
 
-    private void Animate() {
+    public IEnumerator AnimateBattle() {
         List<GameObject> player1BattleRoster = new List<GameObject>();
         List<GameObject> player2BattleRoster = new List<GameObject>();
         foreach(KeyValuePair<List<Player>,string> valuePair in battleRecord) {
@@ -81,31 +82,44 @@ public class Battle {
             Player player1 = playerList[0];
             Player player2 = playerList[1];
             int i = 0;
+            int xPosition = 0;
+            int yPosition = 200;
             foreach (Minion minion in player1.GetBattleRoster()) {
+                if (i > 0) yPosition = 600;
+                if (i == 1) xPosition = -800;
                 if (!minion.IsDead()) {
                     if (player1BattleRoster.Count <= i) {
-                        player1BattleRoster.Add(minion.CreateMinionObject(0, 0));
+                        player1BattleRoster.Add(minion.CreateMinionObject(xPosition, yPosition));
                     } else {
-                        minion.UpdateMinionObject(player1BattleRoster[i], 0, 0);
+                        minion.UpdateMinionObject(player1BattleRoster[i], xPosition, yPosition);
                     }
                 } else {
+                    GameObject.Destroy(player2BattleRoster[i]);
                     player2BattleRoster.RemoveAt(i);
                 }
                 i++;
+                xPosition += 400;
             }
             i = 0;
+            xPosition = 0;
+            yPosition = -200;
             foreach (Minion minion in player2.GetBattleRoster()) {
+                if (i > 0) yPosition = -600;
+                if (i == 1) xPosition = -800;
                 if (!minion.IsDead()) {
                     if (player2BattleRoster.Count <= i) {
-                        player2BattleRoster.Add(minion.CreateMinionObject(0, 0));
+                        player2BattleRoster.Add(minion.CreateMinionObject(xPosition, yPosition));
                     } else {
-                        minion.UpdateMinionObject(player2BattleRoster[i], 0, 0);
+                        minion.UpdateMinionObject(player2BattleRoster[i], xPosition, yPosition);
                     }
                 } else {
+                    GameObject.Destroy(player2BattleRoster[i]);
                     player2BattleRoster.RemoveAt(i);
                 }
                 i++;
+                xPosition += 400;
             }
+            yield return new WaitForSeconds(ANIMATION_SPEED);
         }
         Player lastPlayer1 = battleRecord[battleRecord.Count - 1].Key[0];
         Player lastPlayer2 = battleRecord[battleRecord.Count - 1].Key[1];
