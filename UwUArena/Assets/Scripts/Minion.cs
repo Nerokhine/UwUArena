@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 public class Minion {
 	private GameObject minionObject;
 	private int level;
@@ -130,7 +131,7 @@ public class Minion {
 		RectTransform rectTransform = minionObject.GetComponent<RectTransform>();
 		rectTransform.localPosition = new Vector3(0, 0, 0);
 		rectTransform.localScale = new Vector3 (1, 1, 1);
-		//minionObject.GetComponent<
+		minionObject.transform.Find("Name").GetComponent<Text>().text = name;
 	}
 
 	public Minion (string name) {
