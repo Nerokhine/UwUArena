@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Main : MonoBehaviour {
-
 	public Battle battle;
-
-	public GameObject card;
+	public Test test;
 
 	private void Initialize(){
 		MinionData.Initialize();
@@ -16,8 +14,8 @@ public class Main : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Initialize();
-		battle = Test.TestWallOfFlame();
-		StartCoroutine(battle.AnimateBattle());
+		battle = test.TestWallOfFlame();
+		StartCoroutine(battle.AnimateBattle(this));
 		//Test.TestInkling();
 	}
 	

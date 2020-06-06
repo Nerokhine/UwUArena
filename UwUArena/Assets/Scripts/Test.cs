@@ -1,11 +1,15 @@
-public static class Test {
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-    private static Battle StartBattle(Player player1, Player player2) {
-        Battle battle = new Battle();
+public class Test: MonoBehaviour {
+    public Battle battle;
+
+    private Battle StartBattle(Player player1, Player player2) {
         battle.Fight(player1, player2);
         return battle;
     }
-    public static Battle TestBattle() {
+    public Battle TestBattle() {
         // Initialize Player 1
         Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Booka"));
@@ -27,7 +31,7 @@ public static class Test {
         return battle;
     }
 
-    public static void TestChonkySwordfish() {
+    public void TestChonkySwordfish() {
         // Initialize Player 1
         Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Chonky Swordfish"));
@@ -39,7 +43,7 @@ public static class Test {
         StartBattle(player1, player2);
     }
 
-    public static void TestFishPatrol() {
+    public void TestFishPatrol() {
         // Initialize Player 1
         Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Pheonix"));
@@ -55,7 +59,7 @@ public static class Test {
         StartBattle(player1, player2);
     }
 
-    public static void TestPheonix() {
+    public void TestPheonix() {
         // Initialize Player 1
         Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Pheonix"));
@@ -72,7 +76,7 @@ public static class Test {
         StartBattle(player1, player2);
     }
 
-    public static void TestImp() {
+    public void TestImp() {
         // Initialize Player 1
         Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Imp"));
@@ -84,7 +88,7 @@ public static class Test {
         StartBattle(player1, player2);
     }
 
-    public static Battle TestWallOfFlame() {
+    public Battle TestWallOfFlame() {
         // Initialize Player 1
         Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Pheonix"));
@@ -101,7 +105,7 @@ public static class Test {
         return StartBattle(player1, player2);
     }
     
-    public static void TestBabyColossus() {
+    public void TestBabyColossus() {
         // Initialize Player 1
         Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Pheonix"));
@@ -121,7 +125,7 @@ public static class Test {
         StartBattle(player1, player2);
     }
 
-    public static void TestButtSniffer() {
+    public void TestButtSniffer() {
         // Initialize Player 1
         Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Pheonix"));
@@ -135,7 +139,7 @@ public static class Test {
         StartBattle(player1, player2);
     }
 
-    public static void TestInkling() {
+    public void TestInkling() {
         // Initialize Player 1
         Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Inkling"));

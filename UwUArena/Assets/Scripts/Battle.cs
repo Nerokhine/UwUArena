@@ -4,16 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 // TODO Certain Functions and objects are kept server side
-public class Battle {
+public class Battle: MonoBehaviour {
     private List<Player> players = new List<Player>();
     private List<KeyValuePair<List<Player>, string>> battleRecord;
     private bool DEBUG_MESSAGES_ENABLED = true;
     private float ANIMATION_SPEED = 0.1F;
-    private float TRANSLATE_SPEED = 1F;
-
-    public Battle() {
-
-    }
+    private float TRANSLATE_SPEED = 0.1F;
 
     public void AddToBattleRecord(Player player1, Player player2, string message) {
         List<Player> record = new List<Player>();
@@ -88,14 +84,16 @@ public class Battle {
     }
 
     public IEnumerator AnimateTranslate(GameObject gameObject, int x, int y) {
-        Debug.Log("hi");
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         float incrementerX;
         float incrementerY;
         incrementerX = (rectTransform.localPosition.x - x)/(rectTransform.localPosition.y - y);
         incrementerY = (rectTransform.localPosition.y - y)/(rectTransform.localPosition.x - x);
-        Debug.Log(incrementerX);
+        Debug.Log("Destination: x: " + x + " y: " + y);
+        Debug.Log("LocalPosition: localPosition.x: " + rectTransform.localPosition.x + " localPosition.y: " + rectTransform.localPosition.y);
+        Debug.Log("LocalPosition: incrementerY: " + incrementerY + " incrementerX: " + incrementerX);
         while (rectTransform.localPosition.y + incrementerY < y || rectTransform.localPosition.x + incrementerX < x) {
+            Debug.Log("yooo");
             rectTransform.localPosition = new Vector3(rectTransform.localPosition.x + incrementerX,
                 rectTransform.localPosition.y + incrementerY, 0);
             yield return new WaitForSeconds(TRANSLATE_SPEED);
@@ -103,7 +101,7 @@ public class Battle {
         rectTransform.localPosition = new Vector3(x, y, 0);
     }
 
-    public IEnumerator AnimateBattle() {
+    public IEnumerator AnimateBattle(Main main) {
         List<GameObject> player1BattleRoster = new List<GameObject>();
         List<GameObject> player2BattleRoster = new List<GameObject>();
         foreach(KeyValuePair<List<Player>,string> valuePair in battleRecord) {
@@ -120,8 +118,7 @@ public class Battle {
                     player1BattleRoster.Add(minion.CreateMinionObject(xPosition, yPosition));
                 } else {
                     minion.UpdateMinionObject(player1BattleRoster[i]);
-                    Debug.Log("yo");
-                    AnimateTranslate(player1BattleRoster[i], xPosition, yPosition);
+                    //yield return StartCoroutine(AnimateTranslate(player1BattleRoster[i], xPosition, yPosition));
                 }
                 i++;
                 xPosition -= 400;
@@ -140,7 +137,7 @@ public class Battle {
                     player2BattleRoster.Add(minion.CreateMinionObject(xPosition, yPosition));
                 } else {
                     minion.UpdateMinionObject(player2BattleRoster[i]);
-                    AnimateTranslate(player2BattleRoster[i], xPosition, yPosition);
+                    //yield return StartCoroutine(AnimateTranslate(player2BattleRoster[i], xPosition, yPosition));
                 }
                 i++;
                 xPosition -= 400;

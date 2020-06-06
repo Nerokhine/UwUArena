@@ -450,6 +450,8 @@ GameObject:
   - component: {fileID: 1096910449}
   - component: {fileID: 1096910453}
   - component: {fileID: 1096910454}
+  - component: {fileID: 1096910455}
+  - component: {fileID: 1096910456}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -522,7 +524,7 @@ RectTransform:
   m_GameObject: {fileID: 1096910448}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 80}
-  m_LocalScale: {x: 0.12801558, y: 0.12801558, z: 0.12801558}
+  m_LocalScale: {x: 0.13003385, y: 0.13003385, z: 0.13003385}
   m_Children:
   - {fileID: 180026730}
   - {fileID: 751160578}
@@ -552,7 +554,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ba1254a012a4b85bc3d089adf4d410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 0}
+  battle: {fileID: 1096910455}
+  test: {fileID: 1096910456}
+--- !u!114 &1096910455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1096910448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b793ba92f60f495aa359cc30fb0a1c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1096910456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1096910448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4196ad5069c24e7d8baba2358abb61b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battle: {fileID: 1096910455}
 --- !u!1 &1641710771
 GameObject:
   m_ObjectHideFlags: 0
