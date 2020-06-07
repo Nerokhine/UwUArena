@@ -10,7 +10,7 @@ public class Animations: MonoBehaviour{
 
     public IEnumerator AnimateTranslate(GameObject gameObject, int x, int y) {
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
-        float scale = 20.0f;
+        float scale = 60.0f;
         float incrementerX;
         float incrementerY;
         incrementerX = (x - rectTransform.localPosition.x);
@@ -20,9 +20,9 @@ public class Animations: MonoBehaviour{
         incrementerY /= denominator;
         incrementerX *= scale;
         incrementerY *= scale;
-        Debug.Log("Destination: x: " + x + " y: " + y
+        /*Debug.Log("Destination: x: " + x + " y: " + y
         + "\nLocalPosition: localPosition.x: " + rectTransform.localPosition.x + " localPosition.y: " + rectTransform.localPosition.y
-        + "\nLocalPosition: incrementerY: " + incrementerY + " incrementerX: " + incrementerX);
+        + "\nLocalPosition: incrementerY: " + incrementerY + " incrementerX: " + incrementerX);*/
         while ((rectTransform.localPosition.y < y && rectTransform.localPosition.y + incrementerY < y)
             || (rectTransform.localPosition.y > y && rectTransform.localPosition.y + incrementerY > y)
             || (rectTransform.localPosition.x < x && rectTransform.localPosition.x + incrementerX < x)
@@ -107,7 +107,10 @@ public class Animations: MonoBehaviour{
                                 GameObject.Destroy(lastMinion.GetMinionObject());
                             } else {
                                 minion.UpdateMinionObject(lastMinion.GetMinionObject());
-                                yield return StartCoroutine(AnimateTranslate(minion.GetMinionObject(), xPosition, yPosition));
+                                if (minion.GetMinionObject().GetComponent<RectTransform>().localPosition.x != xPosition ||
+                                    minion.GetMinionObject().GetComponent<RectTransform>().localPosition.y != yPosition) {
+                                    yield return StartCoroutine(AnimateTranslate(minion.GetMinionObject(), xPosition, yPosition));
+                                }
                             }
                         }
                     }
@@ -132,7 +135,10 @@ public class Animations: MonoBehaviour{
                                 GameObject.Destroy(lastMinion.GetMinionObject());
                             } else {
                                 minion.UpdateMinionObject(lastMinion.GetMinionObject());
-                                yield return StartCoroutine(AnimateTranslate(minion.GetMinionObject(), xPosition, yPosition));
+                                if (minion.GetMinionObject().GetComponent<RectTransform>().localPosition.x != xPosition ||
+                                    minion.GetMinionObject().GetComponent<RectTransform>().localPosition.y != yPosition) {
+                                    yield return StartCoroutine(AnimateTranslate(minion.GetMinionObject(), xPosition, yPosition));
+                                }
                             }
                         }
                     }
