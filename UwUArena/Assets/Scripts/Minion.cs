@@ -17,6 +17,7 @@ public class Minion {
 	private Minion opponent;
 	private List<Minion> location;
 	private Effects effects;
+	bool finishedDeath;
 
 	int aquaticKills;
 
@@ -85,11 +86,17 @@ public class Minion {
 		if (location == null) throw new System.ArgumentException(name + " has no location", "location");
 		opponent.GetEffects().OnKilledOpponent();
 		effects.OnDeath();
+		finishedDeath = true;
+		AddToBattleRecord("Finish Death for " + GetName() + "\n");
 		location.Remove(this);
 		owner.AddToDeadBattleRoster(this);
 	}
 	public bool IsDead() {
 		return health <= 0;
+	}
+
+	public bool GetFinishedDeath() {
+		return finishedDeath;
 	}
 
 	public Player GetOwner() {
@@ -157,11 +164,10 @@ public class Minion {
 	}
 
 	public void UpdateMinionObject(GameObject minionObject) {
-		/*minionObject.transform.Find("Name").GetComponent<Text>().text = name;
+		minionObject.transform.Find("Name").GetComponent<Text>().text = name;
 		minionObject.transform.Find("Attack").GetComponent<Text>().text = attack.ToString();
 		minionObject.transform.Find("Health").GetComponent<Text>().text = health.ToString();
 		minionObject.transform.Find("Effect").GetComponent<Text>().text = effectText;
-		return minionObject;*/
 		this.minionObject = minionObject;
 	}
 
@@ -178,6 +184,7 @@ public class Minion {
 		this.level = minionData.GetLevel();
 		this.effectText = minionData.GetEffectText();
 		aquaticKills = 0;
+		finishedDeath = false;
 		this.hasEntered = false;
 		this.effects = new Effects(this);
 		this.id = GenerateID();
@@ -190,7 +197,10 @@ public class Minion {
 		clone.effects = effects.Clone(clone);
 		clone.owner = owner;
 		clone.location = location;
-		if (keepID) clone.id = id;
+		if (keepID) {
+			clone.finishedDeath = finishedDeath;
+			clone.id = id;
+		}
 		// TODO Give that minion this minion's buffs
 		return clone;
 	}

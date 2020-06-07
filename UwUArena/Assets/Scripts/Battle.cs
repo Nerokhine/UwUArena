@@ -177,7 +177,8 @@ public class Battle: MonoBehaviour {
                     foreach (Minion lastMinion in lastPlayer1.GetBattleRoster()) {
                         if (minion.GetID() == lastMinion.GetID()) {
                             foundMinion = true;
-                            if (minion.IsDead()) {
+                            if (minion.GetFinishedDeath()) {
+                                Debug.Log("finishDeath");
                                 GameObject.Destroy(lastMinion.GetMinionObject());
                             } else {
                                 minion.UpdateMinionObject(lastMinion.GetMinionObject());
@@ -201,7 +202,8 @@ public class Battle: MonoBehaviour {
                     foreach (Minion lastMinion in lastPlayer2.GetBattleRoster()) {
                         if (minion.GetID() == lastMinion.GetID()) {
                             foundMinion = true;
-                            if (minion.IsDead()) {
+                            if (minion.GetFinishedDeath()) {
+                                Debug.Log("finishDeath");
                                 GameObject.Destroy(lastMinion.GetMinionObject());
                             } else {
                                 minion.UpdateMinionObject(lastMinion.GetMinionObject());
