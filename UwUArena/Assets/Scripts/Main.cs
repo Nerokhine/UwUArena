@@ -13,7 +13,7 @@ public class Main : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Initialize();
-		Battle battle = Test.TestWallOfFlame();
+		Battle battle = Test.TestBabyColossus();
 		StartCoroutine(animations.AnimateBattle(battle.GetBattleRecord()));
 	}
 	

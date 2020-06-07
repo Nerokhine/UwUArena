@@ -364,7 +364,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 751160574}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1400}
+  m_LocalPosition: {x: 0, y: 0, z: -1700}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1096910452}
@@ -554,8 +554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ba1254a012a4b85bc3d089adf4d410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battle: {fileID: 1096910455}
-  test: {fileID: 1096910456}
+  animations: {fileID: 1096910455}
 --- !u!114 &1096910455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,7 +563,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1096910448}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b793ba92f60f495aa359cc30fb0a1c8, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e99bead9ae8e417b8f1148e1c76e3d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1096910456
@@ -575,10 +574,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 1096910448}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4196ad5069c24e7d8baba2358abb61b, type: 3}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battle: {fileID: 1096910455}
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!1 &1641710771
 GameObject:
   m_ObjectHideFlags: 0

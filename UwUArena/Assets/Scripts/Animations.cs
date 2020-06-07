@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 // TODO Certain Functions and objects are kept server side
-public class Animations: MonoBehaviour{
+public class Animations: MonoBehaviour {
     private float ANIMATION_SPEED = 0.1F;
     private float TRANSLATE_SPEED = 0.01F;
     private float DEATH_SPEED = 0.01F;
@@ -13,6 +13,7 @@ public class Animations: MonoBehaviour{
     private IEnumerator AnimateTranslate(GameObject gameObject, int x, int y) {
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         float scale = 60.0f;
+        float acceleration = 0.1f;
         float incrementerX;
         float incrementerY;
         incrementerX = (x - rectTransform.localPosition.x);
@@ -30,7 +31,7 @@ public class Animations: MonoBehaviour{
             || (rectTransform.localPosition.x < x && rectTransform.localPosition.x + incrementerX < x)
             || (rectTransform.localPosition.x > x && rectTransform.localPosition.x + incrementerX > x)) {
                 rectTransform.localPosition = new Vector3(rectTransform.localPosition.x + incrementerX,
-                    rectTransform.localPosition.y + incrementerY, 0);
+                    rectTransform.localPosition.y + incrementerY, -200);
                 yield return new WaitForSeconds(TRANSLATE_SPEED);
         }
         rectTransform.localPosition = new Vector3(x, y, 0);
