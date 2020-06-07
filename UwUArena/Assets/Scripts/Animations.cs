@@ -9,6 +9,7 @@ public class Animations: MonoBehaviour{
     private float TRANSLATE_SPEED = 0.01F;
 
     public IEnumerator AnimateTranslate(GameObject gameObject, int x, int y) {
+        Debug.Log("number of threads started");
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         float scale = 60.0f;
         float incrementerX;
@@ -32,6 +33,7 @@ public class Animations: MonoBehaviour{
                 yield return new WaitForSeconds(TRANSLATE_SPEED);
         }
         rectTransform.localPosition = new Vector3(x, y, 0);
+        Debug.Log("number of threads finished");
     }
 
     public IEnumerator AnimateBattle(List<KeyValuePair<List<Player>, string>> battleRecord) {
@@ -47,12 +49,12 @@ public class Animations: MonoBehaviour{
             if (lastPlayer1 == null || lastPlayer2 == null) {
                 int i = 0;
                 int xPosition = 0;
-                int yPosition = 200;
+                int yPosition = 250;
                 // TODO (Do this step once at the beggining and then update player1 and player2 with lastPlayers objects)
                 // No need for player1BattleRoster and player2BattleRoster at that point
                 foreach (Minion minion in player1.GetBattleRoster()) {
-                    if (i > 0) yPosition = 600;
-                    if (i == 1) xPosition = 800;
+                    if (i > 0) yPosition = 750;
+                    if (i == 1) xPosition = 900;
                     //if (player1BattleRoster.Count <= i) {
                         //player1BattleRoster.Add(minion.CreateMinionObject(xPosition, yPosition));
                     minion.CreateMinionObject(xPosition, yPosition);
@@ -63,7 +65,7 @@ public class Animations: MonoBehaviour{
                         //}
                     // }
                     i++;
-                    xPosition -= 400;
+                    xPosition -= 450;
                 }
                 /*for (int j = i; j < player1BattleRoster.Count; j++) {
                     if (player1BattleRoster[j] != null) GameObject.Destroy(player1BattleRoster[j]);
@@ -71,10 +73,10 @@ public class Animations: MonoBehaviour{
                 }*/
                 i = 0;
                 xPosition = 0;
-                yPosition = -200;
+                yPosition = -250;
                 foreach (Minion minion in player2.GetBattleRoster()) {
-                    if (i > 0) yPosition = -600;
-                    if (i == 1) xPosition = 800;
+                    if (i > 0) yPosition = -750;
+                    if (i == 1) xPosition = 900;
                     minion.CreateMinionObject(xPosition, yPosition);
                     //if (player2BattleRoster.Count <= i) {
                        // player2BattleRoster.Add(minion.CreateMinionObject(xPosition, yPosition));
@@ -85,7 +87,7 @@ public class Animations: MonoBehaviour{
                         //}
                     //}
                     i++;
-                    xPosition -= 400;
+                    xPosition -= 450;
                 }
                 /*for (int j = i; j < player2BattleRoster.Count; j++) {
                     if (player2BattleRoster[j] != null) GameObject.Destroy(player2BattleRoster[j]);
@@ -94,10 +96,10 @@ public class Animations: MonoBehaviour{
             } else {
                 int i = 0;
                 int xPosition = 0;
-                int yPosition = 200;
+                int yPosition = 250;
                 foreach (Minion minion in player1.GetBattleRoster()) {
-                    if (i > 0) yPosition = 600;
-                    if (i == 1) xPosition = 800;
+                    if (i > 0) yPosition = 750;
+                    if (i == 1) xPosition = 900;
                     bool foundMinion = false;
                     foreach (Minion lastMinion in lastPlayer1.GetBattleRoster()) {
                         if (minion.GetID() == lastMinion.GetID()) {
@@ -118,14 +120,14 @@ public class Animations: MonoBehaviour{
                         minion.CreateMinionObject(xPosition, yPosition);
                     }
                     i++;
-                    xPosition -= 400;
+                    xPosition -= 450;
                 }
                 i = 0;
                 xPosition = 0;
-                yPosition = -200;
+                yPosition = -250;
                 foreach (Minion minion in player2.GetBattleRoster()) {
-                    if (i > 0) yPosition = -600;
-                    if (i == 1) xPosition = 800;
+                    if (i > 0) yPosition = -750;
+                    if (i == 1) xPosition = 900;
                     bool foundMinion = false;
                     foreach (Minion lastMinion in lastPlayer2.GetBattleRoster()) {
                         if (minion.GetID() == lastMinion.GetID()) {
@@ -146,7 +148,7 @@ public class Animations: MonoBehaviour{
                         minion.CreateMinionObject(xPosition, yPosition);
                     }
                     i++;
-                    xPosition -= 400;
+                    xPosition -= 450;
                 }
             }
             GameObject.Find("Info").GetComponent<Text>().text = valuePair.Value;
