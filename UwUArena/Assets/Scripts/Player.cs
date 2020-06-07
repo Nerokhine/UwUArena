@@ -24,23 +24,23 @@ public class Player {
     private List<List<Effect>> traps;
     private Battle battle;
 
-    public Player Clone() {
+    public Player Clone(bool keepID = false) {
         Player clone = new Player(name, health, coins);
         foreach(Minion minion in minionsInHand) {
-            clone.AddToHand(minion.Copy());
+            clone.AddToHand(minion.Copy(keepID));
         }
         foreach(Buff buff in buffsInHand) {
             // TODO buff copy and buff class
             clone.AddToHand(buff);
         }
         foreach(Minion minion in roster) {
-            clone.AddToRoster(minion.Copy());
+            clone.AddToRoster(minion.Copy(keepID));
         }
         foreach(Minion minion in battleRoster) {
-            clone.AddToBattleRoster(minion.Copy());
+            clone.AddToBattleRoster(minion.Copy(keepID));
         }
         foreach(Minion minion in deadBattleRoster) {
-            clone.AddToDeadBattleRoster(minion.Copy());
+            clone.AddToDeadBattleRoster(minion.Copy(keepID));
         }
 
         clone.traps = CloneTraps();

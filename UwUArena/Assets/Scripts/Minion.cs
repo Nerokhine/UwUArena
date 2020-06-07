@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class Minion {
+	private static int nextID = 0;
+	int id;
 	private GameObject minionObject;
 	private int level;
 	private int health;
@@ -19,6 +21,11 @@ public class Minion {
 	int aquaticKills;
 
 	private bool hasEntered;
+
+	public int GenerateID() {
+		nextID ++;
+		return nextID;
+	}
 
 	public int GetLevel() {
 		return level;
@@ -49,6 +56,10 @@ public class Minion {
 
 	public void AddToBattleRecord(string message) {
 		GetOwner().GetBattle().AddToBattleRecord(GetOwner(), opponent.GetOwner(), message);
+	}
+
+	public int GetID() {
+		return id;
 	}
 
 	public string GetName() {
@@ -145,11 +156,16 @@ public class Minion {
 		return minionObject;
 	}
 
-	public GameObject UpdateMinionObject(GameObject minionObject) {
-		minionObject.transform.Find("Name").GetComponent<Text>().text = name;
+	public void UpdateMinionObject(GameObject minionObject) {
+		/*minionObject.transform.Find("Name").GetComponent<Text>().text = name;
 		minionObject.transform.Find("Attack").GetComponent<Text>().text = attack.ToString();
 		minionObject.transform.Find("Health").GetComponent<Text>().text = health.ToString();
 		minionObject.transform.Find("Effect").GetComponent<Text>().text = effectText;
+		return minionObject;*/
+		this.minionObject = minionObject;
+	}
+
+	public GameObject GetMinionObject() {
 		return minionObject;
 	}
 
@@ -164,15 +180,17 @@ public class Minion {
 		aquaticKills = 0;
 		this.hasEntered = false;
 		this.effects = new Effects(this);
+		this.id = GenerateID();
 	}
 
-	public Minion Copy() {
+	public Minion Copy(bool keepID = false) {
 		Minion clone = new Minion(name);
 		clone.health = health;
 		clone.attack = attack;
 		clone.effects = effects.Clone(clone);
 		clone.owner = owner;
 		clone.location = location;
+		if (keepID) clone.id = id;
 		// TODO Give that minion this minion's buffs
 		return clone;
 	}
