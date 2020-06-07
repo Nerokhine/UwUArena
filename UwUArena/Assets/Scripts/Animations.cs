@@ -34,7 +34,7 @@ public class Animations: MonoBehaviour {
                     rectTransform.localPosition.y + incrementerY, -200);
                 yield return new WaitForSeconds(TRANSLATE_SPEED);
         }
-        rectTransform.localPosition = new Vector3(x, y, 0);
+        rectTransform.localPosition = new Vector3(x, y, -20);
     }
 
     private IEnumerator AnimateDeath(GameObject gameObject) {
@@ -113,6 +113,8 @@ public class Animations: MonoBehaviour {
                     previousPlayerList[playerIndex] = player;
                 }
                 playerIndex ++;
+                GameObject.Find(playerIndex == 1 ? "TrapsP2" : "TrapsP1").GetComponent<Text>().text = Battle.DebugTraps(player);
+                GameObject.Find(playerIndex == 1 ? "GiftsP2" : "GiftsP1").GetComponent<Text>().text = Battle.DebugGifts(player);
             }
             GameObject.Find("Info").GetComponent<Text>().text = valuePair.Value;
             yield return new WaitForSeconds(ANIMATION_SPEED);

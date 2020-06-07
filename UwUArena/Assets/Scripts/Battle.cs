@@ -39,11 +39,11 @@ public class Battle {
         return !((player1.GetBattleRosterSize() > 0) && (player2.GetBattleRosterSize() > 0));
     }
 
-    private string DebugMinion(Minion minion) {
+    public static string DebugMinion(Minion minion) {
         return "Name: " + minion.GetName() + ", Attack: " + minion.GetAttack() + ", Health: " + minion.GetHealth() + "\n";
     }
 
-    private string DebugTraps(Player player) {
+    public static string DebugTraps(Player player) {
         List<List<Effect>> traps = player.GetTraps();
         if (traps.Count <= 0) return "";
         int numberOfDifferentTraps = traps[0].Count;
@@ -64,7 +64,7 @@ public class Battle {
         return debug;
     }
 
-    private string DebugGifts(Player player) {
+    public static string DebugGifts(Player player) {
         List<List<Effect>> gifts = player.GetGifts();
         if (gifts.Count <= 0) return "";
         int numberOfDifferentGifts = gifts[0].Count;
