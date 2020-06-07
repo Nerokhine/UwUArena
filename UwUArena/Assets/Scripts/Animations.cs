@@ -7,8 +7,10 @@ using UnityEngine.UI;
 public class Animations: MonoBehaviour{
     private float ANIMATION_SPEED = 0.1F;
     private float TRANSLATE_SPEED = 0.01F;
+    private float DEATH_SPEED = 0.01F;
+    private float BIRTH_SPEED = 0.01F;
 
-    public IEnumerator AnimateTranslate(GameObject gameObject, int x, int y) {
+    private IEnumerator AnimateTranslate(GameObject gameObject, int x, int y) {
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         float scale = 60.0f;
         float incrementerX;
@@ -34,6 +36,40 @@ public class Animations: MonoBehaviour{
         rectTransform.localPosition = new Vector3(x, y, 0);
     }
 
+    private IEnumerator AnimateDeath(GameObject gameObject) {
+        RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
+        float rateOfDecrease = 0.05f;
+        /*Debug.Log("localScale.x: "+ rectTransform.localScale.x
+            + " localScale.y: " + rectTransform.localScale.y
+            + " localScale.z: " + rectTransform.localScale.z);*/
+        while (rectTransform.localScale.x - rateOfDecrease >= 0
+            || rectTransform.localScale.y - rateOfDecrease >= 0
+            || rectTransform.localScale.z - rateOfDecrease >= 0) {
+                rectTransform.localScale = new Vector3(rectTransform.localScale.x - rateOfDecrease,
+                    rectTransform.localScale.y - rateOfDecrease,
+                    rectTransform.localScale.z - rateOfDecrease);
+                yield return new WaitForSeconds(DEATH_SPEED);
+        }
+        GameObject.Destroy(gameObject);
+    }
+
+    private IEnumerator AnimateBirth(GameObject gameObject) {
+        RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
+        float rateOfIncrease = 0.05f;
+        /*Debug.Log("localScale.x: "+ rectTransform.localScale.x
+            + " localScale.y: " + rectTransform.localScale.y
+            + " localScale.z: " + rectTransform.localScale.z);*/
+        while (rectTransform.localScale.x + rateOfIncrease <= 1
+            || rectTransform.localScale.y + rateOfIncrease <= 1
+            || rectTransform.localScale.z + rateOfIncrease <= 1) {
+                rectTransform.localScale = new Vector3(rectTransform.localScale.x + rateOfIncrease,
+                    rectTransform.localScale.y + rateOfIncrease,
+                    rectTransform.localScale.z + rateOfIncrease);
+                yield return new WaitForSeconds(BIRTH_SPEED);
+        }
+        rectTransform.localScale = new Vector3 (1, 1, 1);
+    }
+
     public IEnumerator AnimateBattle(List<KeyValuePair<List<Player>, string>> battleRecord) {
         List<Player> previousPlayerList = new List<Player>();
         foreach(KeyValuePair<List<Player>,string> valuePair in battleRecord) {
@@ -52,7 +88,7 @@ public class Animations: MonoBehaviour{
                             if (minion.GetID() == lastMinion.GetID()) {
                                 foundMinion = true;
                                 if (minion.GetFinishedDeath()) {
-                                    GameObject.Destroy(lastMinion.GetMinionObject());
+                                    yield return StartCoroutine(AnimateDeath(lastMinion.GetMinionObject()));
                                 } else {
                                     minion.UpdateMinionObject(lastMinion.GetMinionObject());
                                     if (minion.GetMinionObject().GetComponent<RectTransform>().localPosition.x != xPosition ||
@@ -65,6 +101,7 @@ public class Animations: MonoBehaviour{
                     }
                     if (!foundMinion) {
                         minion.CreateMinionObject(xPosition, yPosition);
+                        yield return StartCoroutine(AnimateBirth(minion.GetMinionObject()));
                     }
                     battleRosterIndex++;
                     xPosition -= 450;

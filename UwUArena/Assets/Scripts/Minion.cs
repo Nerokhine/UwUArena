@@ -152,10 +152,10 @@ public class Minion {
 		return UpdateMinionObject(minionObject, xPosition, yPosition);
 	}
 
-	public GameObject UpdateMinionObject(GameObject minionObject, int xPosition, int yPosition) {
+	private GameObject UpdateMinionObject(GameObject minionObject, int xPosition, int yPosition) {
 		RectTransform rectTransform = minionObject.GetComponent<RectTransform>();
 		rectTransform.localPosition = new Vector3(xPosition, yPosition, 0);
-		rectTransform.localScale = new Vector3 (1, 1, 1);
+		rectTransform.localScale = new Vector3 (0, 0, 0);
 		minionObject.transform.Find("Name").GetComponent<Text>().text = name;
 		minionObject.transform.Find("Attack").GetComponent<Text>().text = attack.ToString();
 		minionObject.transform.Find("Health").GetComponent<Text>().text = health.ToString();
