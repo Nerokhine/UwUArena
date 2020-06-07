@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Main : MonoBehaviour {
-	public Battle battle;
-	public Test test;
+	public Animations animations;
 
 	private void Initialize(){
 		MinionData.Initialize();
@@ -14,9 +13,8 @@ public class Main : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Initialize();
-		battle = test.TestWallOfFlame();
-		StartCoroutine(battle.AnimateBattle(this));
-		//Test.TestInkling();
+		Battle battle = Test.TestWallOfFlame();
+		StartCoroutine(animations.AnimateBattle(battle.GetBattleRecord()));
 	}
 	
 	// Update is called once per frame

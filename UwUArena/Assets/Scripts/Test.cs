@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Test: MonoBehaviour {
-    public Battle battle;
-
-    private Battle StartBattle(Player player1, Player player2) {
+public static class Test {
+    private static Battle StartBattle(Player player1, Player player2) {
+        Battle battle = new Battle();
         battle.Fight(player1, player2);
         return battle;
     }
-    public Battle TestBattle() {
+    public static Battle TestBattle() {
         // Initialize Player 1
         Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Booka"));
@@ -27,11 +26,10 @@ public class Test: MonoBehaviour {
         player2.AddToRoster(new Minion("Whelp Master"));
         player2.AddToRoster(new Minion("Whelp Master"));
 
-        Battle battle = StartBattle(player1, player2);
-        return battle;
+        return StartBattle(player1, player2);
     }
 
-    public void TestChonkySwordfish() {
+    public static Battle TestChonkySwordfish() {
         // Initialize Player 1
         Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Chonky Swordfish"));
@@ -40,10 +38,10 @@ public class Test: MonoBehaviour {
         Player player2 = new Player("Computer", health:30, coins:3);
         player2.AddToRoster(new Minion("Booka"));
 
-        StartBattle(player1, player2);
+        return StartBattle(player1, player2);
     }
 
-    public void TestFishPatrol() {
+    public static Battle TestFishPatrol() {
         // Initialize Player 1
         Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Pheonix"));
@@ -56,10 +54,10 @@ public class Test: MonoBehaviour {
         player2.AddToRoster(new Minion("Fish Patrol"));
         player2.AddToRoster(new Minion("Fish Patrol"));
 
-        StartBattle(player1, player2);
+        return StartBattle(player1, player2);
     }
 
-    public void TestPheonix() {
+    public static Battle TestPheonix() {
         // Initialize Player 1
         Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Pheonix"));
@@ -73,10 +71,10 @@ public class Test: MonoBehaviour {
         player2.AddToRoster(new Minion("Whelp Master"));
         player2.AddToRoster(new Minion("Whelp Master"));
 
-        StartBattle(player1, player2);
+        return StartBattle(player1, player2);
     }
 
-    public void TestImp() {
+    public static Battle TestImp() {
         // Initialize Player 1
         Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Imp"));
@@ -85,10 +83,10 @@ public class Test: MonoBehaviour {
         Player player2 = new Player("Computer", health:30, coins:3);
         player2.AddToRoster(new Minion("Wall of flame"));
 
-        StartBattle(player1, player2);
+        return StartBattle(player1, player2);
     }
 
-    public Battle TestWallOfFlame() {
+    public static Battle TestWallOfFlame() {
         // Initialize Player 1
         Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Pheonix"));
@@ -105,7 +103,7 @@ public class Test: MonoBehaviour {
         return StartBattle(player1, player2);
     }
     
-    public void TestBabyColossus() {
+    public static Battle TestBabyColossus() {
         // Initialize Player 1
         Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Pheonix"));
@@ -122,10 +120,10 @@ public class Test: MonoBehaviour {
         player2.AddToRoster(new Minion("Imp"));
         player2.AddToRoster(new Minion("Imp"));
 
-        StartBattle(player1, player2);
+        return StartBattle(player1, player2);
     }
 
-    public void TestButtSniffer() {
+    public static Battle TestButtSniffer() {
         // Initialize Player 1
         Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Pheonix"));
@@ -136,10 +134,10 @@ public class Test: MonoBehaviour {
         player2.AddToRoster(new Minion("Wall of flame"));
         player2.AddToRoster(new Minion("Butt sniffer"));
 
-        StartBattle(player1, player2);
+        return StartBattle(player1, player2);
     }
 
-    public void TestInkling() {
+    public static Battle TestInkling() {
         // Initialize Player 1
         Player player1 = new Player("Nik", health:30, coins:3);
         player1.AddToRoster(new Minion("Inkling"));
@@ -149,6 +147,6 @@ public class Test: MonoBehaviour {
         player2.AddToRoster(new Minion("Wall of flame"));
         player2.AddToRoster(new Minion("Inkling"));
 
-        StartBattle(player1, player2);
+        return StartBattle(player1, player2);
     }
 }
