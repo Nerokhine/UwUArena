@@ -20,10 +20,10 @@ MonoBehaviour:
     y: 30
     width: 1440
     height: 850
-  m_MinSize: {x: 683, y: 342}
-  m_MaxSize: {x: 12008, y: 8042}
+  m_MinSize: {x: 683, y: 492}
+  m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 33801
+  controlID: 35995
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -120,10 +120,10 @@ MonoBehaviour:
     y: 0
     width: 1148
     height: 850
-  m_MinSize: {x: 406, y: 342}
-  m_MaxSize: {x: 8006, y: 8042}
+  m_MinSize: {x: 406, y: 492}
+  m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 33802
+  controlID: 35996
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 33803
+  controlID: 35997
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -201,8 +201,8 @@ MonoBehaviour:
     height: 461
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 68290000
-    m_LastClickedID: 10600
+    m_SelectedIDs: c4bf0000
+    m_LastClickedID: 0
     m_ExpandedIDs: acb8feff38f7ffffa0fbffff000000006829000076290000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -372,14 +372,14 @@ MonoBehaviour:
     y: 482
     width: 1148
     height: 368
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 12}
+  m_MinSize: {x: 232, y: 271}
+  m_MaxSize: {x: 10002, y: 10021}
+  m_ActualView: {fileID: 11}
   m_Panes:
   - {fileID: 11}
   - {fileID: 12}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -418,19 +418,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Resources
+    - Assets/Resources/Material
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Resources
+  - Assets/Resources/Material
   m_LastFoldersGridSize: -1
   m_LastProjectPath: /Users/nikita/Desktop/UwUArena/UwUArena
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: f4280000
-    m_LastClickedID: 10484
-    m_ExpandedIDs: 00000000ba28000000ca9a3bffffff7f
+    m_SelectedIDs: 56c30000
+    m_LastClickedID: 50006
+    m_ExpandedIDs: 00000000ba280000f428000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -458,7 +458,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ba28000000ca9a3bffffff7f
+    m_ExpandedIDs: 00000000ba280000f428000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -483,8 +483,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
+    m_SelectedInstanceIDs: c4bf0000
+    m_LastClickedInstanceID: 49092
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000682a000000000000
     m_RenameOverlay:

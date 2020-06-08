@@ -169,6 +169,38 @@ public class Minion {
 		minionObject.transform.Find("Attack").GetComponent<Text>().text = attack.ToString();
 		minionObject.transform.Find("Health").GetComponent<Text>().text = health.ToString();
 		minionObject.transform.Find("Effect").GetComponent<Text>().text = effectText;
+		switch (tribe) {
+			case Tribe.Aquatic:
+				minionObject.transform.Find("TorusTopHalf").gameObject.GetComponent<Renderer>().material
+					= Resources.Load("Material/Blue", typeof(Material)) as Material;
+				minionObject.transform.Find("TorusBottomHalf").gameObject.GetComponent<Renderer>().material
+					= Resources.Load("Material/Blue", typeof(Material)) as Material;
+				break;
+			case Tribe.Dragon:
+				minionObject.transform.Find("TorusTopHalf").gameObject.GetComponent<Renderer>().material
+					= Resources.Load("Material/Gold", typeof(Material)) as Material;
+				minionObject.transform.Find("TorusBottomHalf").gameObject.GetComponent<Renderer>().material
+					= Resources.Load("Material/Gold", typeof(Material)) as Material;
+				break;
+			case Tribe.Forest:
+				minionObject.transform.Find("TorusTopHalf").gameObject.GetComponent<Renderer>().material
+					= Resources.Load("Material/Forest", typeof(Material)) as Material;
+				minionObject.transform.Find("TorusBottomHalf").gameObject.GetComponent<Renderer>().material
+					= Resources.Load("Material/Forest", typeof(Material)) as Material;
+				break;
+			case Tribe.Pyro:
+				minionObject.transform.Find("TorusTopHalf").gameObject.GetComponent<Renderer>().material
+					= Resources.Load("Material/Red", typeof(Material)) as Material;
+				minionObject.transform.Find("TorusBottomHalf").gameObject.GetComponent<Renderer>().material
+					= Resources.Load("Material/Red", typeof(Material)) as Material;
+				break;
+			case Tribe.Thunder:
+				minionObject.transform.Find("TorusTopHalf").gameObject.GetComponent<Renderer>().material
+					= Resources.Load("Material/Yellow", typeof(Material)) as Material;
+				minionObject.transform.Find("TorusBottomHalf").gameObject.GetComponent<Renderer>().material
+					= Resources.Load("Material/Yellow", typeof(Material)) as Material;
+				break;
+		}
 		return minionObject;
 	}
 
