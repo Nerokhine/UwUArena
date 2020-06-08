@@ -18,6 +18,7 @@ public class Minion {
 	private List<Minion> location;
 	private Effects effects;
 	bool finishedDeath;
+	bool finishedOnAttack;
 
 	int aquaticKills;
 
@@ -99,6 +100,14 @@ public class Minion {
 		return finishedDeath;
 	}
 
+	public bool GetFinishedOnAttack() {
+		return finishedOnAttack;
+	}
+
+	public void SetFinishedOnAttack(bool finishedOnAttack) {
+		this.finishedOnAttack = finishedOnAttack;
+	}
+
 	public Player GetOwner() {
 		return owner;
 	}
@@ -144,7 +153,7 @@ public class Minion {
 		return false;
 	}
 
-	public GameObject CreateMinionObject(int xPosition, int yPosition) {
+	public GameObject CreateMinionObject(float xPosition, float yPosition) {
 		if (minionObject == null) {
 			minionObject = GameObject.Instantiate(Resources.Load("Minion", typeof(GameObject))) as GameObject;
 			minionObject.transform.SetParent(GameObject.Find("Canvas").transform);
@@ -152,7 +161,7 @@ public class Minion {
 		return UpdateMinionObject(minionObject, xPosition, yPosition);
 	}
 
-	private GameObject UpdateMinionObject(GameObject minionObject, int xPosition, int yPosition) {
+	private GameObject UpdateMinionObject(GameObject minionObject, float xPosition, float yPosition) {
 		RectTransform rectTransform = minionObject.GetComponent<RectTransform>();
 		rectTransform.localPosition = new Vector3(xPosition, yPosition, 0);
 		rectTransform.localScale = new Vector3 (0, 0, 0);
@@ -185,6 +194,7 @@ public class Minion {
 		this.effectText = minionData.GetEffectText();
 		aquaticKills = 0;
 		finishedDeath = false;
+		finishedOnAttack = false;
 		this.hasEntered = false;
 		this.effects = new Effects(this);
 		this.id = GenerateID();
@@ -199,6 +209,7 @@ public class Minion {
 		clone.location = location;
 		if (keepID) {
 			clone.finishedDeath = finishedDeath;
+			clone.finishedOnAttack = finishedOnAttack;
 			clone.id = id;
 		}
 		// TODO Give that minion this minion's buffs

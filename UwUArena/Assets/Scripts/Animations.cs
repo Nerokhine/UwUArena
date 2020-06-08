@@ -9,11 +9,13 @@ public class Animations: MonoBehaviour {
     private float TRANSLATE_SPEED = 0.01F;
     private float DEATH_SPEED = 0.01F;
     private float BIRTH_SPEED = 0.01F;
+    private float ATTACK_SPEED = 0.01F;
+    private float TOP_MIDDLE_Y = 250;
+    private float BOT_MIDDLE_Y = -250;
 
-    private IEnumerator AnimateTranslate(GameObject gameObject, int x, int y) {
+    private IEnumerator AnimateTranslate(GameObject gameObject, float x, float y) {
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         float scale = 60.0f;
-        float acceleration = 0.1f;
         float incrementerX;
         float incrementerY;
         incrementerX = (x - rectTransform.localPosition.x);
@@ -34,7 +36,34 @@ public class Animations: MonoBehaviour {
                     rectTransform.localPosition.y + incrementerY, -200);
                 yield return new WaitForSeconds(TRANSLATE_SPEED);
         }
-        rectTransform.localPosition = new Vector3(x, y, -20);
+        rectTransform.localPosition = new Vector3(x, y, 0);
+    }
+
+    public IEnumerator AnimateAttack(GameObject gameObject) {
+        RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
+        float distance = rectTransform.localPosition.y == TOP_MIDDLE_Y ? -70f : 70f;
+        float destination = rectTransform.localPosition.y + distance;
+        float incrementerY = rectTransform.localPosition.y == TOP_MIDDLE_Y ? -10f : 10f;
+        /*Debug.Log("Destination: x: " + x + " y: " + y
+        + "\nLocalPosition: localPosition.x: " + rectTransform.localPosition.x + " localPosition.y: " + rectTransform.localPosition.y
+        + "\nLocalPosition: incrementerY: " + incrementerY + " incrementerX: " + incrementerX);*/
+        while ((distance < 0f && rectTransform.localPosition.y + incrementerY > destination)
+            || (distance > 0f && rectTransform.localPosition.y + incrementerY < destination)) {
+                rectTransform.localPosition = new Vector3(rectTransform.localPosition.x,
+                    rectTransform.localPosition.y + incrementerY, -200);
+                yield return new WaitForSeconds(ATTACK_SPEED);
+        }
+        rectTransform.localPosition = new Vector3(rectTransform.localPosition.x, destination, 0);
+        distance *= -1;
+        incrementerY *= -1;
+        destination = rectTransform.localPosition.y + distance;
+        while ((distance < 0f && rectTransform.localPosition.y + incrementerY > destination)
+            || (distance > 0f && rectTransform.localPosition.y + incrementerY < destination)) {
+            rectTransform.localPosition = new Vector3(rectTransform.localPosition.x,
+                rectTransform.localPosition.y + incrementerY, -200);
+            yield return new WaitForSeconds(ATTACK_SPEED);
+        }
+        rectTransform.localPosition = new Vector3(rectTransform.localPosition.x, destination, 0);
     }
 
     private IEnumerator AnimateDeath(GameObject gameObject) {
@@ -78,8 +107,8 @@ public class Animations: MonoBehaviour {
             int playerIndex = 0;
             foreach (Player player in playerList) {
                 int battleRosterIndex = 0;
-                int xPosition = 0;
-                int yPosition = playerIndex == 1 ? -250 : 250;
+                float xPosition = 0;
+                float yPosition = playerIndex == 1 ? BOT_MIDDLE_Y : TOP_MIDDLE_Y;
                 foreach (Minion minion in player.GetBattleRoster()) {
                     if (battleRosterIndex > 0) yPosition = playerIndex == 1 ? -750 : 750;
                     if (battleRosterIndex == 1) xPosition = 900;
@@ -88,14 +117,14 @@ public class Animations: MonoBehaviour {
                         foreach (Minion lastMinion in previousPlayerList[playerIndex].GetBattleRoster()) {
                             if (minion.GetID() == lastMinion.GetID()) {
                                 foundMinion = true;
+                                minion.UpdateMinionObject(lastMinion.GetMinionObject());
                                 if (minion.GetFinishedDeath()) {
                                     yield return StartCoroutine(AnimateDeath(lastMinion.GetMinionObject()));
-                                } else {
-                                    minion.UpdateMinionObject(lastMinion.GetMinionObject());
-                                    if (minion.GetMinionObject().GetComponent<RectTransform>().localPosition.x != xPosition ||
-                                        minion.GetMinionObject().GetComponent<RectTransform>().localPosition.y != yPosition) {
+                                } else if (minion.GetFinishedOnAttack()) {
+                                    yield return StartCoroutine(AnimateAttack(minion.GetMinionObject()));
+                                } else if (minion.GetMinionObject().GetComponent<RectTransform>().localPosition.x != xPosition ||
+                                    minion.GetMinionObject().GetComponent<RectTransform>().localPosition.y != yPosition) {
                                         yield return StartCoroutine(AnimateTranslate(minion.GetMinionObject(), xPosition, yPosition));
-                                    }
                                 }
                             }
                         }

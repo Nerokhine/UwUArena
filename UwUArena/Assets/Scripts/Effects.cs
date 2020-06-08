@@ -119,7 +119,9 @@ public class Effects {
         foreach (Effect effect in onAttackEffects) {
             effect(minion, opponent);
         }
+        minion.SetFinishedOnAttack(true);
         minion.AddToBattleRecord("Finish OnAttack for " + minion.GetName() + "\n");
+        minion.SetFinishedOnAttack(false);
     }
 
     public void OnDamage() {
